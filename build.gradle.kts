@@ -35,6 +35,7 @@ modstitch {
         "1.21.1" -> 21
         "1.21.4" -> 21
         "1.21.8", "1.21.10", "1.21.11" -> 21
+        "26.1.2" -> 25
         else -> throw IllegalArgumentException("Please store the java version for $minecraft in build.gradle.kts!")
     }
 
@@ -74,6 +75,7 @@ modstitch {
                     "1.21.8" -> 64
                     "1.21.10" -> 69
                     "1.21.11" -> 70.0
+                    "26.1.2" -> 84
                     else -> throw IllegalArgumentException("Please store the resource pack version for ${property("deps.minecraft")} in build.gradle.kts! https://minecraft.wiki/w/Pack_format")
                 }.toString()
             )
@@ -102,7 +104,10 @@ modstitch {
     loom {
         // It's not recommended to store the Fabric Loader version in properties.
         // Make sure its up to date.
-        fabricLoaderVersion = "0.16.11"
+        fabricLoaderVersion = when (minecraft) {
+            "26.1.2" -> "0.19.5"
+            else -> "0.16.11"
+        }
         configureLoom {
             runs {
                 all {
@@ -139,7 +144,9 @@ modstitch {
                         javaLauncher.set(
                             javaToolchains.launcherFor {
                                 languageVersion = JavaLanguageVersion.of(project.modstitch.javaVersion.get())
-                                vendor = JvmVendorSpec.JETBRAINS
+                                if (minecraft != "26.1.2") {
+                                    vendor = JvmVendorSpec.JETBRAINS
+                                }
                             }
                         )
                     }
@@ -160,7 +167,7 @@ modstitch {
             isModDevGradleLegacy -> configs.register("${mid}-1.20.1")
             minecraft == "1.21.1" -> configs.register("${mid}-1.21")
             minecraft == "1.21.4" -> configs.register("${mid}-1.21.4")
-            minecraft == "1.21.10" || minecraft == "1.21.11" -> configs.register("${mid}-1.21.10")
+            minecraft == "1.21.10" || minecraft == "1.21.11" || minecraft == "26.1.2" -> configs.register("${mid}-1.21.10")
             else -> configs.register("${mid}-default")
         }
 
@@ -205,6 +212,32 @@ stonecutter {
         replace("\\bResourceLocation\\b" to "Identifier", "\\bIdentifier\\b" to "ResourceLocation")
     }
 
+    replacements.string(current.parsed >= "26.1") {
+        replace("net.minecraft.client.gui.GuiGraphics", "net.minecraft.client.gui.GuiGraphicsExtractor")
+        replace("net.minecraft.client.renderer.state.LevelRenderState", "net.minecraft.client.renderer.state.level.LevelRenderState")
+        replace("net.minecraft.client.renderer.LightTexture", "net.minecraft.client.renderer.Lightmap")
+        replace(".getItemHolder()", ".typeHolder()")
+        replace(".getTags()", ".tags()")
+        replace("LightTexture.FULL_BRIGHT", "15728880")
+        replace(
+            "equippable.canBeEquippedBy(Minecraft.getInstance().player.getType())",
+            "equippable.canBeEquippedBy(Minecraft.getInstance().player.getType().builtInRegistryHolder())"
+        )
+    }
+
+    replacements.regex(current.parsed >= "26.1") {
+        replace("\\bGuiGraphics\\b" to "GuiGraphicsExtractor", "\\bGuiGraphicsExtractor\\b" to "GuiGraphics")
+        replace("\\bLightTexture\\b" to "Lightmap", "\\bLightmap\\b" to "LightTexture")
+    }
+
+    replacements.string(current.parsed >= "26.1" && loader.equals("fabric")) {
+        replace(
+            "HudRenderCallback.EVENT.register(AdvanceTooltipOverlay.INSTANCE::render);",
+            "net.fabricmc.fabric.api.client.rendering.v1.hud.HudElementRegistry.attachElementAfter(net.fabricmc.fabric.api.client.rendering.v1.hud.VanillaHudElements.CROSSHAIR, net.minecraft.resources.Identifier.fromNamespaceAndPath(LootBeamsConstants.MODID, \"lb_tooltips\"), AdvanceTooltipOverlay.INSTANCE::render);"
+        )
+        replace("net.fabricmc.fabric.api.client.rendering.v1.HudRenderCallback", "net.fabricmc.fabric.api.client.rendering.v1.hud.HudElementRegistry")
+    }
+
     replacements.string("ss_replacement", current.version.equals("1.20.1")) {
         replace("Styles.COMMON", "HelperMethods.getStyle(\"common\")")
         replace("Styles.UNIQUE", "HelperMethods.getStyle(\"unique\")")
@@ -238,6 +271,7 @@ dependencies {
         "1.21.4" -> "1.21.3"
         "1.21.8" -> "1.21.6"
         "1.21.10" -> "1.21.9"
+        "26.1.2" -> "26.1"
         else -> minecraft
     }
     var fzzyString : String = "";
@@ -278,7 +312,7 @@ dependencies {
     modstitchModCompileOnly(fzzyString)
     (fzzyString).runtimeOnly()
 
-    ("maven.modrinth:nirvana-library:${loader}-${minecraft}-${libVersion}").implementation()
+    ("maven.modrinth:nirvana-library:${findProperty("deps.nirvana") ?: "$loader-$minecraft-$libVersion"}").implementation()
     ("maven.modrinth:common-network:${property("deps.common_network")}").runtimeOnly()
     //loader-specified deps
     DependencyConfig.getDependencies(loaderEnum, minecraft).forEach { dep ->
@@ -313,8 +347,10 @@ msPublishing {
             this@mpp.displayName.set(file.map { it.asFile.name })
         }
         //dryRun = true
+        val cfToken = file("D:\\curseforge-key.txt").takeIf { it.exists() }?.readText().orEmpty()
+        val mrToken = file("D:\\modrinth-key.txt").takeIf { it.exists() }?.readText().orEmpty()
         val cfOptions = curseforgeOptions {
-            accessToken = file("D:\\curseforge-key.txt").readText()
+            accessToken = cfToken
             projectId = "1150640"
             minecraftVersions.add(minecraft)
             clientRequired = true
@@ -325,20 +361,23 @@ msPublishing {
 
         // Modrinth options used by both Fabric and Forge
         val mrOptions = modrinthOptions {
-            accessToken = file("D:\\modrinth-key.txt").readText()
+            accessToken = mrToken
             version = "${loader}-${minecraft}-${modstitch.metadata.modVersion.get()}"
             projectId = "rp7ooqvq"
             minecraftVersions.add(minecraft)
             requires("nirvana-library")
         }
 
-        curseforge("toCurseForge") {
-            from(cfOptions)
+        if (cfToken.isNotBlank()) {
+            curseforge("toCurseForge") {
+                from(cfOptions)
+            }
         }
 
-
-        modrinth("toModrinth") {
-            from(mrOptions)
+        if (mrToken.isNotBlank()) {
+            modrinth("toModrinth") {
+                from(mrOptions)
+            }
         }
 
 
