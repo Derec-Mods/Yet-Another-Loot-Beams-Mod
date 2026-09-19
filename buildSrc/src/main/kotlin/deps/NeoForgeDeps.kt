@@ -77,6 +77,10 @@ object NeoForgeDeps {
                     //modstitchModRuntimeOnly("curse.maven:irisshaders-455508:7525081")
                     //modstitchModRuntimeOnly("curse.maven:sodium-394468:7527475")
                 }
+
+                "26.1.2" -> {
+                    modstitchModCompileOnly("maven.modrinth:iris:qE5Y7GrZ")
+                }
             }
         }
     }

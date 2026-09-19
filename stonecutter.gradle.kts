@@ -3,14 +3,11 @@ plugins {
 }
 stonecutter active "1.21.1-neoforge"
 
-stonecutter registerChiseled tasks.register("chiseledBuild", stonecutter.chiseled) {
-    group = "project"
-    ofTask("build")
-}
-
-// Chiseled builds leave each jar in versions/<target>/build/libs, so gather them in one place.
+// Stonecutter 0.7+ dropped chiseled tasks: `./gradlew build` already builds every target.
+// Each jar still lands in versions/<target>/build/libs, so gather them in one place.
 tasks.register<Copy>("collectJars") {
     group = "project"
+    dependsOn(stonecutter.tasks.named("build"))
     from(fileTree("versions") {
         include("*/build/libs/*.jar")
         exclude("**/*-sources.jar", "**/*-dev.jar", "**/*-dev-shadow.jar", "**/*-slim.jar")
