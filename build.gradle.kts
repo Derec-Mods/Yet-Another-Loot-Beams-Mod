@@ -144,7 +144,9 @@ modstitch {
                         javaLauncher.set(
                             javaToolchains.launcherFor {
                                 languageVersion = JavaLanguageVersion.of(project.modstitch.javaVersion.get())
-                                vendor = JvmVendorSpec.JETBRAINS
+                                if (minecraft != "26.1.2") {
+                                    vendor = JvmVendorSpec.JETBRAINS
+                                }
                             }
                         )
                     }
