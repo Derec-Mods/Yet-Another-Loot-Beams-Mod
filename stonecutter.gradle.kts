@@ -3,6 +3,23 @@ plugins {
 }
 stonecutter active "1.21.1-neoforge"
 
+stonecutter registerChiseled tasks.register("chiseledBuild", stonecutter.chiseled) {
+    group = "project"
+    ofTask("build")
+}
+
+// Chiseled builds leave each jar in versions/<target>/build/libs, so gather them in one place.
+tasks.register<Copy>("collectJars") {
+    group = "project"
+    from(fileTree("versions") {
+        include("*/build/libs/*.jar")
+        exclude("**/*-sources.jar", "**/*-dev.jar", "**/*-dev-shadow.jar", "**/*-slim.jar")
+    })
+    into(layout.buildDirectory.dir("collected-jars"))
+    eachFile { path = name }
+    includeEmptyDirs = false
+}
+
 
 allprojects {
     repositories {
