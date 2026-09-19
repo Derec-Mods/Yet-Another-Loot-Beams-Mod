@@ -212,6 +212,32 @@ stonecutter {
         replace("\\bResourceLocation\\b" to "Identifier", "\\bIdentifier\\b" to "ResourceLocation")
     }
 
+    replacements.string(current.parsed >= "26.1") {
+        replace("net.minecraft.client.gui.GuiGraphics", "net.minecraft.client.gui.GuiGraphicsExtractor")
+        replace("net.minecraft.client.renderer.state.LevelRenderState", "net.minecraft.client.renderer.state.level.LevelRenderState")
+        replace("net.minecraft.client.renderer.LightTexture", "net.minecraft.client.renderer.Lightmap")
+        replace(".getItemHolder()", ".typeHolder()")
+        replace(".getTags()", ".tags()")
+        replace("LightTexture.FULL_BRIGHT", "15728880")
+        replace(
+            "equippable.canBeEquippedBy(Minecraft.getInstance().player.getType())",
+            "equippable.canBeEquippedBy(Minecraft.getInstance().player.getType().builtInRegistryHolder())"
+        )
+    }
+
+    replacements.regex(current.parsed >= "26.1") {
+        replace("\\bGuiGraphics\\b" to "GuiGraphicsExtractor", "\\bGuiGraphicsExtractor\\b" to "GuiGraphics")
+        replace("\\bLightTexture\\b" to "Lightmap", "\\bLightmap\\b" to "LightTexture")
+    }
+
+    replacements.string(current.parsed >= "26.1" && loader.equals("fabric")) {
+        replace(
+            "HudRenderCallback.EVENT.register(AdvanceTooltipOverlay.INSTANCE::render);",
+            "net.fabricmc.fabric.api.client.rendering.v1.hud.HudElementRegistry.attachElementAfter(net.fabricmc.fabric.api.client.rendering.v1.hud.VanillaHudElements.CROSSHAIR, net.minecraft.resources.Identifier.fromNamespaceAndPath(LootBeamsConstants.MODID, \"lb_tooltips\"), AdvanceTooltipOverlay.INSTANCE::render);"
+        )
+        replace("net.fabricmc.fabric.api.client.rendering.v1.HudRenderCallback", "net.fabricmc.fabric.api.client.rendering.v1.hud.HudElementRegistry")
+    }
+
     replacements.string("ss_replacement", current.version.equals("1.20.1")) {
         replace("Styles.COMMON", "HelperMethods.getStyle(\"common\")")
         replace("Styles.UNIQUE", "HelperMethods.getStyle(\"unique\")")
@@ -286,7 +312,7 @@ dependencies {
     modstitchModCompileOnly(fzzyString)
     (fzzyString).runtimeOnly()
 
-    ("maven.modrinth:nirvana-library:${loader}-${minecraft}-${libVersion}").implementation()
+    ("maven.modrinth:nirvana-library:${findProperty("deps.nirvana") ?: "$loader-$minecraft-$libVersion"}").implementation()
     ("maven.modrinth:common-network:${property("deps.common_network")}").runtimeOnly()
     //loader-specified deps
     DependencyConfig.getDependencies(loaderEnum, minecraft).forEach { dep ->
