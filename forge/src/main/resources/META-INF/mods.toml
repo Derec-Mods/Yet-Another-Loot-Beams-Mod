@@ -1,8 +1,8 @@
 modLoader = "javafml" #mandatory
 loaderVersion = "${forge_loader_version_range}" #mandatory This is typically bumped every Minecraft version by Forge. See https://files.minecraftforge.net/ for a list of versions.
 license = "${license}" # Review your options at https://choosealicense.com/.
-issueTrackerURL = "https://github.com/TUsama/Loot-Beams-Refork/issues"
-displayURL="https://www.curseforge.com/minecraft/mc-mods/loot-beams-refork"
+issueTrackerURL = "https://github.com/Derec-Mods/Yet-Another-Loot-Beams-Mod/issues"
+displayURL="https://github.com/Derec-Mods/Yet-Another-Loot-Beams-Mod"
 [[mods]] #mandatory
 modId = "${mod_id}" #mandatory
 version = "${version}" #mandatory

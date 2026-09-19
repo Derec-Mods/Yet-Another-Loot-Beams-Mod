@@ -1,4 +1,5 @@
-[![CurseForge](https://img.shields.io/badge/CurseForge-Loot_Beams-orange)](https://www.curseforge.com/minecraft/mc-mods/loot-beams-refork)
+# Yet-Another-Loot-Beams-Mod
 
-# Loot Beams
-A Minecraft mod that adds colorful and customizable loot beams to dropped items!
+This is a client-side Minecraft mod that puts colored loot beams on dropped items.
+
+Forked from [Loot Beams Refork](https://github.com/TUsama/Loot-Beams-Refork) under the [MIT](LICENSE) license.

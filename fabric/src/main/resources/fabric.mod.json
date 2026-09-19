@@ -8,9 +8,9 @@
         "${mod_author}"
     ],
     "contact": {
-        "homepage": "https://www.curseforge.com/minecraft/mc-mods/loot-beams-refork",
-        "issues": "https://github.com/TUsama/Loot-Beams-Refork/issues",
-        "sources": "https://github.com/TUsama/Loot-Beams-Refork"
+        "homepage": "https://github.com/Derec-Mods/Yet-Another-Loot-Beams-Mod",
+        "issues": "https://github.com/Derec-Mods/Yet-Another-Loot-Beams-Mod/issues",
+        "sources": "https://github.com/Derec-Mods/Yet-Another-Loot-Beams-Mod"
     },
     "license": "${license}",
     "icon": "assets/${mod_id}/${mod_id}.png",

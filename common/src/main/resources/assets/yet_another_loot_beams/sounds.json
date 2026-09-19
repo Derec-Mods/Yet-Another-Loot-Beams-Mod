@@ -2,17 +2,17 @@
   "loot_drop": {
     "sounds": [
       {
-        "name": "lootbeams:drop_01",
+        "name": "yet_another_loot_beams:drop_01",
         "stream": true,
         "weight": 1
       },
       {
-        "name": "lootbeams:drop_02",
+        "name": "yet_another_loot_beams:drop_02",
         "stream": true,
         "weight": 1
       },
       {
-        "name": "lootbeams:drop_03",
+        "name": "yet_another_loot_beams:drop_03",
         "stream": true,
         "weight": 1
       }

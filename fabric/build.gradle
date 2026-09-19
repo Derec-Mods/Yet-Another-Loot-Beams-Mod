@@ -110,31 +110,35 @@ remapJar {
     inputFile = file(tasks.shadowJar.archiveFile)
 }
 
-publishMods {
-    file = tasks.remapJar.archiveFile
-    displayName = file.map { it.asFile.name }
-    changelog = file("..\\changelog.md").text.split('\n').collect { string -> {
-        if (!string.isBlank()) {
-            string + "</br>"
-        } else {
-            string
+def curseforgeKey = file("D:\\curseforge-key.txt")
+def modrinthKey = file("D:\\modrinth-key.txt")
+if (curseforgeKey.exists() && modrinthKey.exists()) {
+    publishMods {
+        file = tasks.remapJar.archiveFile
+        displayName = file.map { it.asFile.name }
+        changelog = file("..\\changelog.md").text.split('\n').collect { string -> {
+            if (!string.isBlank()) {
+                string + "</br>"
+            } else {
+                string
+            }
+        }}.join('\n')
+        type = STABLE
+        modLoaders.add("fabric")
+        curseforge {
+            accessToken = curseforgeKey.text
+            projectId = "1150640"
+            clientRequired = true
+            minecraftVersions.add("${minecraft_version}")
+            requires("nirvana-library")
         }
-    }}.join('\n')
-    type = STABLE
-    modLoaders.add("fabric")
-    curseforge {
-        accessToken = file("D:\\curseforge-key.txt").text
-        projectId = "1150640"
-        clientRequired = true
-        minecraftVersions.add("${minecraft_version}")
-        requires("nirvana-library")
-    }
 
-    modrinth {
-        accessToken = file("D:\\modrinth-key.txt").text
-        projectId = "rp7ooqvq"
-        minecraftVersions.add("${minecraft_version}")
-        requires("nirvana-library")
+        modrinth {
+            accessToken = modrinthKey.text
+            projectId = "rp7ooqvq"
+            minecraftVersions.add("${minecraft_version}")
+            requires("nirvana-library")
+        }
     }
 }
 

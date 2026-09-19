@@ -4,8 +4,8 @@
     "srcrgb": "srcalpha",
     "dstrgb": "1-srcalpha"
   },
-  "vertex": "lootbeams:particle",
-  "fragment": "lootbeams:particle_add",
+  "vertex": "yet_another_loot_beams:particle",
+  "fragment": "yet_another_loot_beams:particle_add",
   "attributes": [
     "Position",
     "UV0",

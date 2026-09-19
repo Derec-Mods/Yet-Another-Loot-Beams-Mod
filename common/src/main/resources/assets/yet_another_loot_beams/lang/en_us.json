@@ -1,0 +1,31 @@
+{
+  "lootbeams.vanilla_rarity.common": "Common",
+  "lootbeams.vanilla_rarity.uncommon": "Uncommon",
+  "lootbeams.vanilla_rarity.rare": "Rare",
+  "lootbeams.vanilla_rarity.epic": "Epic",
+  "lootbeams.mod_rarity.non_soul": "Non Soul",
+  "yet_another_loot_beams.light_config.lightEffectFilter.whitelist_by_tag.desc": "the format is the same as the datapack format, start with \"#\".",
+  "yet_another_loot_beams.light_config.lightEffectFilter.blacklist_by_tag.desc": "the format is the same as the datapack format, start with \"#\".",
+  "yet_another_loot_beams.photon_compat_config.fxEnable.affectAllBeam.desc": "When enable, the photon FX will apply on every items, instead of the items specified in By Item Name.",
+  "yet_another_loot_beams.photon_compat_config.fxEnable.affectSetting.desc": "the detail of affectAllBeam.",
+  "yet_another_loot_beams.photon_compat_config.fxEnable.baseFX.desc": "The FX that every beam effect will be replaced by. Default value is a FX made by Clefal, also you can check the project file inside mod assets folder.",
+  "yet_another_loot_beams.affect_strategy.Merge": "Merge",
+  "yet_another_loot_beams.affect_strategy.Merge.desc": "Show original beam and FX at the same time.",
+  "yet_another_loot_beams.affect_strategy.CompletelyReplace": "Completely Replace",
+  "yet_another_loot_beams.affect_strategy.CompletelyReplace.desc": "only show FX.",
+  
+  "yet_another_loot_beams.loot_information_status.NONE": "None",
+
+  "yet_another_loot_beams.loot_information_status.ONLY_NAME_IN_NAMETAG": "Only name (Name Tag)",
+  "yet_another_loot_beams.loot_information_status.ONLY_NAME_IN_NAMETAG.desc": "Show name tag, but only with the item's name.",
+
+  "yet_another_loot_beams.loot_information_status.NAME_AND_RARITY_IN_NAMETAG": "Name and Rarity (Name Tag)",
+  "yet_another_loot_beams.loot_information_status.NAME_AND_RARITY_IN_NAMETAG.desc": "Show name tag with the item's name and rarity.",
+
+  "yet_another_loot_beams.loot_information_status.NAME_AND_RARITY_IN_TOOLTIPS": "Name and Rarity (Tooltips)",
+  "yet_another_loot_beams.loot_information_status.NAME_AND_RARITY_IN_TOOLTIPS.desc": "Show Tooltips with the item's name and rarity.",
+
+  "yet_another_loot_beams.photon_compat_config.fxEnable.byItemName.desc": "Item that need special handle, key is the item ResourceLocation, and the value is the FX ResourceLocation.",
+  "yet_another_loot_beams.photon_compat_config.fxEnable.affectStrategy.desc": "The strategy that how the fx affect current loot beam appearance.",
+  "yet_another_loot_beams.photon_compat_config.fxControl.ifThisNameShouldBeReplacedColor.desc": "In each FX, you will create several FXObjects for the visual effect. This mod will automatically replace the FXObject's color(only the particle and the beam, and will only replace the normal Color, Gradient do not support yet) if the object's name is in this config. the three objects provided by default is for the default baseFX. The Replace Alpha means use the beam_alpha define in Beam Config to change the alpha of object."
+}
