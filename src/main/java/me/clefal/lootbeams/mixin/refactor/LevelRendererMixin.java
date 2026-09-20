@@ -1,8 +1,7 @@
 //? >= 1.21.10 {
 /*package me.clefal.lootbeams.mixin.refactor;
 
-import com.clefal.nirvana_lib.relocated.io.vavr.Tuple;
-import com.clefal.nirvana_lib.relocated.io.vavr.Tuple3;
+import me.clefal.lootbeams.utils.Tuple3;
 import com.llamalad7.mixinextras.sugar.Local;
 import com.mojang.blaze3d.vertex.PoseStack;
 import me.clefal.lootbeams.modules.Hooker;
@@ -49,7 +48,7 @@ public abstract class LevelRendererMixin {
             var x = Mth.lerp((double)f, entity.xOld, entity.getX());
             var y = Mth.lerp((double)f, entity.yOld, entity.getY());
             var z = Mth.lerp((double)f, entity.zOld, entity.getZ());
-            Hooker.retainedEntities.add(Tuple.of(item, deltaTracker.getGameTimeDeltaTicks(), new Vec3(x, y, z)));
+            Hooker.retainedEntities.add(Tuple3.of(item, deltaTracker.getGameTimeDeltaTicks(), new Vec3(x, y, z)));
         }
     }
     ^///?}

@@ -9,7 +9,6 @@ import me.clefal.lootbeams.data.lbitementity.rarity.LBColor;
 import me.clefal.lootbeams.data.lbitementity.rarity.LBRarity;
 import me.clefal.lootbeams.events.RegisterLBRarityEvent;
 import me.clefal.lootbeams.modules.ILBCompatModule;
-import com.clefal.nirvana_lib.relocated.io.vavr.control.Option;
 import com.stereowalker.tiered.Reforged;
 import com.stereowalker.tiered.api.PotentialAttribute;
 import net.minecraft.Util;
@@ -17,6 +16,8 @@ import net.minecraft.core.component.DataComponents;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
+
+import java.util.Optional;
 
 
 public class TieredReforgedCompatModule implements ILBCompatModule {
@@ -48,7 +49,7 @@ public class TieredReforgedCompatModule implements ILBCompatModule {
                         ResourceLocation tier = item1.get(Reforged.ComponentsRegistry.MODIFIER);
                         PotentialAttribute potentialAttribute = (PotentialAttribute) Reforged.TIER_DATA.getTiers().get(tier);
                         if (potentialAttribute != null) {
-                            return Option.some(LBItemEntity.of(itemEntity, LBRarity.of(
+                            return Optional.of(LBItemEntity.of(itemEntity, LBRarity.of(
                                     potentialAttribute.getLiteralName() != null ? Component.literal(potentialAttribute.getLiteralName()) : Component.translatable(Util.makeDescriptionId("tier", Reforged.getKey(potentialAttribute))),
                                     LBColor.of(potentialAttribute.getStyle().getColor().getValue()),
                                     0)
@@ -57,7 +58,7 @@ public class TieredReforgedCompatModule implements ILBCompatModule {
                         }
                     }
 
-                    return Option.none();
+                    return Optional.empty();
                 }
         );
     }

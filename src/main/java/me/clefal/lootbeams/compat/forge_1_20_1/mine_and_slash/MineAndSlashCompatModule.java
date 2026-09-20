@@ -23,8 +23,7 @@ import net.minecraft.network.chat.Component;
 import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
-
-import static com.clefal.nirvana_lib.relocated.io.vavr.API.*;
+import java.util.Optional;
 
 public class MineAndSlashCompatModule implements ILBCompatModule {
 
@@ -60,25 +59,53 @@ public class MineAndSlashCompatModule implements ILBCompatModule {
 
     @SubscribeEvent
     public void onEnable(RegisterLBRarityEvent.Pre event) {
-        event.register(itemEntity ->
-
-                Match(Match(itemEntity.getItem()).option(
-                        //ItemEntity -> GearRarity
-                        Case($(stack -> StackSaving.GEARS.has(stack)), stack -> StackSaving.GEARS.loadFrom(stack).getRarity()),
-                        Case($(stack -> ICommonDataItem.load(stack) != null), stack -> ICommonDataItem.load(stack).getRarity()),
-                        Case($(stack -> stack.getItem() instanceof IRarityItem), stack -> ((IRarityItem) stack.getItem()).getItemRarity(stack)),
-                        Case($(stack -> stack.getItem() instanceof GemItem), stack -> ((GemItem) stack.getItem()).getBaseGem().getRarity()),
-                        Case($(stack -> StackSaving.OMEN.has(stack)), stack -> StackSaving.OMEN.loadFrom(stack).getRarity())
-
-                )).option(
-                        //GearRarity -> LBRarity
-                        Case($(option -> !option.isEmpty()), option -> LBItemEntity.of(itemEntity, LBRarity.of(
-                                option.get().locName(),
-                                LBColor.of(option.get().textFormatting().getColor()),
-                                rarities.indexOf(option.get().guid)
-                        ))),
-                        Case($(option -> GearSlot.getSlotOf(itemEntity.getItem()) != null), option -> LBItemEntity.of(itemEntity, getNonSoulRarity()))
-                ));
+        event.register(itemEntity -> {
+                    var stack = itemEntity.getItem();
+                    if (StackSaving.GEARS.has(stack)) {
+                        var rarity = StackSaving.GEARS.loadFrom(stack).getRarity();
+                        return Optional.of(LBItemEntity.of(itemEntity, LBRarity.of(
+                                rarity.locName(),
+                                LBColor.of(rarity.textFormatting().getColor()),
+                                rarities.indexOf(rarity.guid)
+                        )));
+                    }
+                    if (ICommonDataItem.load(stack) != null) {
+                        var rarity = ICommonDataItem.load(stack).getRarity();
+                        return Optional.of(LBItemEntity.of(itemEntity, LBRarity.of(
+                                rarity.locName(),
+                                LBColor.of(rarity.textFormatting().getColor()),
+                                rarities.indexOf(rarity.guid)
+                        )));
+                    }
+                    if (stack.getItem() instanceof IRarityItem) {
+                        var rarity = ((IRarityItem) stack.getItem()).getItemRarity(stack);
+                        return Optional.of(LBItemEntity.of(itemEntity, LBRarity.of(
+                                rarity.locName(),
+                                LBColor.of(rarity.textFormatting().getColor()),
+                                rarities.indexOf(rarity.guid)
+                        )));
+                    }
+                    if (stack.getItem() instanceof GemItem) {
+                        var rarity = ((GemItem) stack.getItem()).getBaseGem().getRarity();
+                        return Optional.of(LBItemEntity.of(itemEntity, LBRarity.of(
+                                rarity.locName(),
+                                LBColor.of(rarity.textFormatting().getColor()),
+                                rarities.indexOf(rarity.guid)
+                        )));
+                    }
+                    if (StackSaving.OMEN.has(stack)) {
+                        var rarity = StackSaving.OMEN.loadFrom(stack).getRarity();
+                        return Optional.of(LBItemEntity.of(itemEntity, LBRarity.of(
+                                rarity.locName(),
+                                LBColor.of(rarity.textFormatting().getColor()),
+                                rarities.indexOf(rarity.guid)
+                        )));
+                    }
+                    if (GearSlot.getSlotOf(itemEntity.getItem()) != null) {
+                        return Optional.of(LBItemEntity.of(itemEntity, getNonSoulRarity()));
+                    }
+                    return Optional.empty();
+                });
 
     }
 

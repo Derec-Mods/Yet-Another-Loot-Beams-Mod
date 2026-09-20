@@ -8,7 +8,6 @@ import me.clefal.lootbeams.events.EntityRenderDispatcherHookEvent;
 import me.clefal.lootbeams.events.TooltipsGatherNameAndRarityEvent;
 import me.clefal.lootbeams.modules.ILBModule;
 import me.clefal.lootbeams.modules.tooltip.nametag.NameTagRenderer;
-import com.clefal.nirvana_lib.relocated.io.vavr.API;
 import me.clefal.lootbeams.bus.EventPriority;
 import me.clefal.lootbeams.bus.SubscribeEvent;
 import net.minecraft.network.chat.Component;
@@ -22,9 +21,6 @@ import net.minecraft.network.chat.contents.PlainTextContents;
 /*import net.minecraft.network.chat.contents.LiteralContents;
 *///?}
 import java.util.Map;
-
-import static com.clefal.nirvana_lib.relocated.io.vavr.API.$;
-import static com.clefal.nirvana_lib.relocated.io.vavr.API.Case;
 
 public class TooltipsModule implements ILBModule {
 
@@ -64,10 +60,12 @@ public class TooltipsModule implements ILBModule {
 
     @SubscribeEvent(priority = EventPriority.LOWEST)
     public void deleteRarityInfoWhenConfigEnable(TooltipsGatherNameAndRarityEvent event) {
-        API.Match(LootInfomationConfig.lootInfomationConfig.rarity.showRarityFor).option(
-                Case($(x -> x.get() == LootInfomationConfig.ShowRarityTarget.NONE), x -> event.gather.remove(TooltipsGatherNameAndRarityEvent.Case.RARITY)),
-                Case($(x -> x.get() == LootInfomationConfig.ShowRarityTarget.RARE && !event.lbItemEntity.isRare() && event.lbItemEntity.rarity().absoluteOrdinal() != -1), x -> event.gather.remove(TooltipsGatherNameAndRarityEvent.Case.RARITY))
-        );
+        var showRarityFor = LootInfomationConfig.lootInfomationConfig.rarity.showRarityFor.get();
+        if (showRarityFor == LootInfomationConfig.ShowRarityTarget.NONE) {
+            event.gather.remove(TooltipsGatherNameAndRarityEvent.Case.RARITY);
+        } else if (showRarityFor == LootInfomationConfig.ShowRarityTarget.RARE && !event.lbItemEntity.isRare() && event.lbItemEntity.rarity().absoluteOrdinal() != -1) {
+            event.gather.remove(TooltipsGatherNameAndRarityEvent.Case.RARITY);
+        }
     }
 
     @SubscribeEvent(priority = EventPriority.HIGHEST)

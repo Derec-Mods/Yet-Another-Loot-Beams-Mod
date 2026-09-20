@@ -1,7 +1,6 @@
 //? (1.20.1 && forge) || (1.21.1 && neoforge){
 package me.clefal.lootbeams.compat.multiversion_compat;
 
-import com.clefal.nirvana_lib.relocated.io.vavr.control.Option;
 import me.clefal.lootbeams.bus.SubscribeEvent;
 import me.clefal.lootbeams.utils.ModUtils;
 import me.clefal.lootbeams.LootBeamsConstants;
@@ -13,6 +12,8 @@ import me.clefal.lootbeams.modules.ILBCompatModule;
 import net.minecraft.network.chat.Component;
 import org.yanbwe.raritycore.api.RarityCoreAPI;
 import org.yanbwe.raritycore.util.RarityColorUtil;
+
+import java.util.Optional;
 
 public class RarityCoreCompatModule implements ILBCompatModule {
     public final static RarityCoreCompatModule INSTANCE = new RarityCoreCompatModule();
@@ -35,7 +36,7 @@ public class RarityCoreCompatModule implements ILBCompatModule {
         event.register(itemEntity -> {
             var stack = itemEntity.getItem().getItem();
             int rarity = RarityCoreAPI.getRarity(stack);
-            return Option.some(LBItemEntity.of(itemEntity, LBRarity.of(Component.literal(RarityCoreAPI.getLocalizedTooltip(stack)), LBColor.fromRGB(RarityColorUtil.getRarityRgbColor(rarity)), rarity)));
+            return Optional.of(LBItemEntity.of(itemEntity, LBRarity.of(Component.literal(RarityCoreAPI.getLocalizedTooltip(stack)), LBColor.fromRGB(RarityColorUtil.getRarityRgbColor(rarity)), rarity)));
         });
     }
 }

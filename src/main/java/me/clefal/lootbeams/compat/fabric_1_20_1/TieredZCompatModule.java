@@ -8,8 +8,6 @@ import me.clefal.lootbeams.data.lbitementity.rarity.LBColor;
 import me.clefal.lootbeams.data.lbitementity.rarity.LBRarity;
 import me.clefal.lootbeams.events.RegisterLBRarityEvent;
 import me.clefal.lootbeams.modules.ILBCompatModule;
-import com.clefal.nirvana_lib.relocated.io.vavr.collection.List;
-import com.clefal.nirvana_lib.relocated.io.vavr.control.Option;
 import me.clefal.lootbeams.bus.SubscribeEvent;
 import draylar.tiered.Tiered;
 import draylar.tiered.api.PotentialAttribute;
@@ -18,6 +16,8 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
 
 import java.awt.*;
+import java.util.List;
+import java.util.Optional;
 
 public class TieredZCompatModule implements ILBCompatModule {
 
@@ -62,9 +62,9 @@ public class TieredZCompatModule implements ILBCompatModule {
                         if (potentialAttribute != null) {
                             String id = potentialAttribute.getID();
 
-                            Option<String> find = this.rarities.find(id::contains);
+                            Optional<String> find = this.rarities.stream().filter(id::contains).findFirst();
 
-                            return Option.some(LBItemEntity.of(itemEntity, LBRarity.of(
+                            return Optional.of(LBItemEntity.of(itemEntity, LBRarity.of(
                                     Component.translatable(id + ".label"),
                                     LBColor.of(potentialAttribute.getStyle().getColor().getValue()),
                                     find.isEmpty() ? 0 : this.rarities.indexOf(find.get())
@@ -72,7 +72,7 @@ public class TieredZCompatModule implements ILBCompatModule {
                         }
                     }
 
-                    return Option.none();
+                    return Optional.empty();
 
                 }
 

@@ -1,8 +1,6 @@
 //? malum {
 package me.clefal.lootbeams.compat.multiversion_compat;
 
-import com.clefal.nirvana_lib.relocated.io.vavr.API;
-import com.clefal.nirvana_lib.relocated.io.vavr.control.Option;
 import me.clefal.lootbeams.bus.SubscribeEvent;
 import me.clefal.lootbeams.utils.ModUtils;
 import com.sammy.malum.MalumMod;
@@ -15,6 +13,8 @@ import me.clefal.lootbeams.data.lbitementity.rarity.LBColor;
 import me.clefal.lootbeams.data.lbitementity.rarity.LBRarity;
 import me.clefal.lootbeams.events.RegisterLBRarityEvent;
 import me.clefal.lootbeams.modules.ILBCompatModule;
+
+import java.util.Optional;
 
 //? if 1.21.1 {
 import com.sammy.malum.registry.common.item.MalumDataComponents;
@@ -41,18 +41,12 @@ public class MalumCompatModule implements ILBCompatModule {
     @SubscribeEvent
     public void onEnable(RegisterLBRarityEvent.Pre event) {
         event.register(itemEntity ->
-                API.Option(itemEntity.getItem())
+                Optional.ofNullable(itemEntity.getItem())
                         //? if 1.20.1 {
-                        /*.flatMap(x -> Option.of(RitualShardItem.getRitualType(x)))
+                        /*.flatMap(x -> Optional.ofNullable(RitualShardItem.getRitualType(x)))
                         .map(x -> x.spirit)
                         *///?} else {
-                        .flatMap(x -> {
-                            var data = x.get(MalumDataComponents.SPIRIT_JAR_CONTENTS);
-                            if (data != null) {
-                                return Option.some(data.spirit());
-                            }
-                            return Option.none();
-                        })
+                        .flatMap(x -> Optional.ofNullable(x.get(MalumDataComponents.SPIRIT_JAR_CONTENTS)).map(data -> data.spirit()))
                         //?}
                         .map(x -> {
                             LBRarity old = LBRarity.ofVanillaRarity(x.getItemRarity());

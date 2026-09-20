@@ -12,7 +12,7 @@ import me.clefal.lootbeams.modules.dynamicprovider.DynamicProviderModule;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import com.mojang.math.Axis;
-import com.clefal.nirvana_lib.relocated.io.vavr.control.Option;
+import java.util.Optional;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.client.renderer.LightTexture;
@@ -99,8 +99,8 @@ public class BeamRenderer {
 
 
         int beamAlpha = ((int) (preBeamAlpha * 255));
-        Option<DynamicProvider> dynamicProvider1 = DynamicProviderModule.getDynamicProvider();
-        if (dynamicProvider1.isDefined()) {
+        Optional<DynamicProvider> dynamicProvider1 = DynamicProviderModule.getDynamicProvider();
+        if (dynamicProvider1.isPresent()) {
             beamAlpha *= Math.min(dynamicProvider1.get().getBeamLightFactor(), 1);
             beamHeight += dynamicProvider1.get().getBeamLightFactor() - 0.3f;
             beamRadius += 0.005f * dynamicProvider1.get().getGlowFactor();

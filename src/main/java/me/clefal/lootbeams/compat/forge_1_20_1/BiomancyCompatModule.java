@@ -1,7 +1,6 @@
 //? if biomancy {
 /*package me.clefal.lootbeams.compat.forge_1_20_1;
 
-import com.clefal.nirvana_lib.relocated.io.vavr.control.Option;
 import me.clefal.lootbeams.bus.SubscribeEvent;
 import me.clefal.lootbeams.utils.ModUtils;
 import com.github.elenterius.biomancy.BiomancyMod;
@@ -18,6 +17,7 @@ import net.minecraft.world.item.Rarity;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 public class BiomancyCompatModule implements ILBCompatModule {
     public static final BiomancyCompatModule INSTANCE = new BiomancyCompatModule();
@@ -46,7 +46,7 @@ public class BiomancyCompatModule implements ILBCompatModule {
     public void onEnable(RegisterLBRarityEvent.Pre event) {
         event.register(itemEntity -> {
             ItemStack item = itemEntity.getItem();
-            return Option.some(item)
+            return Optional.of(item)
                     .filter(x -> x.getRarity().name().contains("biomancy_"))
                     .filter(x -> itemEntity.getItem().getItem() instanceof ItemTooltipStyleProvider)
                     .map(x -> {

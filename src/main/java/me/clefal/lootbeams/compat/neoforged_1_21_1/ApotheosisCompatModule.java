@@ -9,7 +9,6 @@ import me.clefal.lootbeams.data.lbitementity.rarity.LBRarity;
 import me.clefal.lootbeams.events.RegisterConfigConditionEvent;
 import me.clefal.lootbeams.events.RegisterLBRarityEvent;
 import me.clefal.lootbeams.modules.ILBCompatModule;
-import com.clefal.nirvana_lib.relocated.io.vavr.control.Option;
 import dev.shadowsoffire.apotheosis.Apotheosis;
 import dev.shadowsoffire.apotheosis.affix.AffixHelper;
 import dev.shadowsoffire.apotheosis.affix.salvaging.SalvageItem;
@@ -19,8 +18,7 @@ import dev.shadowsoffire.apotheosis.socket.gem.GemItem;
 import net.neoforged.fml.ModList;
 
 import java.awt.*;
-
-import static com.clefal.nirvana_lib.relocated.io.vavr.API.*;
+import java.util.Optional;
 
 public class ApotheosisCompatModule implements ILBCompatModule {
     public final static ApotheosisCompatModule INSTANCE = new ApotheosisCompatModule();
@@ -42,26 +40,22 @@ public class ApotheosisCompatModule implements ILBCompatModule {
     public void onEnable(RegisterLBRarityEvent.Pre event) {
         event.register(itemEntity -> {
             var stack = itemEntity.getItem();
-
-            return Match(Match(stack).option(
-                    //ItemStack -> LootRarity
-                    Case($(AffixHelper::hasAffixes), AffixHelper::getRarity),
-                    Case($(v -> (v.getItem() instanceof SalvageItem)), v -> RarityRegistry.getMaterialRarity(v.getItem()))
-            )).of(
-                    //LootRarity -> ILBRarity
-                    Case($(v -> v.isEmpty() || v.get().is(RarityRegistry.INSTANCE.emptyHolder().getId())), v -> Option.none()),
-                    Case($(v -> !v.get().isBound()), v -> Option.none()),
-                    Case($(), v -> Option.some(LBItemEntity.of(itemEntity, LBRarity.of(
-                                    v.get().get().toComponent(),
-                                    LBColor.ofMutable(v.get().get().color()),
-                                    v.get().get().sortIndex()
-                            )))
-                    ));
+            var v = AffixHelper.hasAffixes(stack) ? AffixHelper.getRarity(stack)
+                    : stack.getItem() instanceof SalvageItem ? RarityRegistry.getMaterialRarity(stack.getItem())
+                    : null;
+            if (v == null || v.is(RarityRegistry.INSTANCE.emptyHolder().getId()) || !v.isBound()) {
+                return Optional.empty();
+            }
+            return Optional.of(LBItemEntity.of(itemEntity, LBRarity.of(
+                    v.get().toComponent(),
+                    LBColor.ofMutable(v.get().color()),
+                    v.get().sortIndex()
+            )));
         });
         //handle new gem item.
         event.register(itemEntity -> {
             var stack = itemEntity.getItem();
-            return Option.of(stack)
+            return Optional.of(stack)
                     .filter(x -> x.getItem() instanceof GemItem)
                     .map(x -> GemInstance.unsocketed(x).purity())
                     .map(x -> LBItemEntity.of(

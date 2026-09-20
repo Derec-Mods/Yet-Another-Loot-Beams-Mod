@@ -3,7 +3,6 @@ package me.clefal.lootbeams.modules.tooltip;
 import me.clefal.lootbeams.config.configs.LootInfomationConfig;
 import me.clefal.lootbeams.data.lbitementity.LBItemEntity;
 import me.clefal.lootbeams.events.TooltipsGatherNameAndRarityEvent;
-import com.clefal.nirvana_lib.relocated.io.vavr.Function1;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.network.chat.Style;
@@ -15,9 +14,10 @@ import net.minecraft.network.chat.contents.PlainTextContents;
 import net.minecraft.world.item.ItemStack;
 
 import java.util.function.Consumer;
+import java.util.function.Function;
 
 public class LootInformationEnableStatus {
-    public static final Function1<LBItemEntity, Component> handleName = lbItemEntity -> {
+    public static final Function<LBItemEntity, Component> handleName = lbItemEntity -> {
         boolean ifShowStack = LootInfomationConfig.lootInfomationConfig.nameTag.render_stack_count;
         ItemStack item = lbItemEntity.item().getItem();
         Style style = item.getHoverName().getStyle();

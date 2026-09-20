@@ -5,8 +5,9 @@ import me.clefal.lootbeams.config.configs.DynamicConfig;
 import me.clefal.lootbeams.config.impl.IConfigReloadable;
 import me.clefal.lootbeams.events.ConfigReloadEvent;
 import me.clefal.lootbeams.modules.ILBModule;
-import com.clefal.nirvana_lib.relocated.io.vavr.control.Option;
 import me.clefal.lootbeams.bus.SubscribeEvent;
+
+import java.util.Optional;
 
 public class DynamicProviderModule implements ILBModule, IConfigReloadable {
 
@@ -27,9 +28,8 @@ public class DynamicProviderModule implements ILBModule, IConfigReloadable {
         }
     }
 
-    public static Option<DynamicProvider> getDynamicProvider() {
-        //System.out.println(INSTANCE.dynamicProvider == null);
-        return Option.of(INSTANCE.dynamicProvider);
+    public static Optional<DynamicProvider> getDynamicProvider() {
+        return Optional.ofNullable(INSTANCE.dynamicProvider);
     }
 
     @Override

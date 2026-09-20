@@ -2,9 +2,6 @@
 //? simplesword{
 package me.clefal.lootbeams.compat.multiversion_compat;
 
-import com.clefal.nirvana_lib.relocated.io.vavr.API;
-import com.clefal.nirvana_lib.relocated.io.vavr.Tuple;
-import com.clefal.nirvana_lib.relocated.io.vavr.control.Option;
 import me.clefal.lootbeams.bus.SubscribeEvent;
 import me.clefal.lootbeams.utils.ModUtils;
 import me.clefal.lootbeams.LootBeamsConstants;
@@ -18,6 +15,8 @@ import net.minecraft.network.chat.Style;
 import net.minecraft.network.chat.TextColor;
 import net.sweenus.simplyswords.item.RunicSwordItem;
 import net.sweenus.simplyswords.item.UniqueSwordItem;
+
+import java.util.Optional;
 
 //? >1.20.1 {
 import net.sweenus.simplyswords.util.Styles;
@@ -46,20 +45,24 @@ public class SimpleSwordCompatModule implements ILBCompatModule {
             if (itemEntity.getItem().getItem() instanceof UniqueSwordItem) {
                 TextColor color = itemEntity.getItem().getHoverName().getStyle().getColor();
                 if (color != null) {
-                    return API.Match(color.getValue())
-                            .option(
-                                    API.Case(API.$(x -> x.equals(styleToColor(Styles.COMMON))), x -> Tuple.of(Component.translatable("lootbeams.mod_rarity.simple_swords.common"), x)),
-                                    API.Case(API.$(x -> x.equals(styleToColor(Styles.UNIQUE))), x -> Tuple.of(Component.translatable("lootbeams.mod_rarity.simple_swords.unique"), x)),
-                                    API.Case(API.$(x -> x.equals(styleToColor(Styles.LEGENDARY))), x -> Tuple.of(Component.translatable("lootbeams.mod_rarity.simple_swords.legendary"), x))
-                            ).map(x -> {
-                                return LBItemEntity.of(itemEntity, LBRarity.of(x._1, LBColor.of(x._2), -1));
-                            });
+                    int value = color.getValue();
+                    Component name = null;
+                    if (value == styleToColor(Styles.COMMON)) {
+                        name = Component.translatable("lootbeams.mod_rarity.simple_swords.common");
+                    } else if (value == styleToColor(Styles.UNIQUE)) {
+                        name = Component.translatable("lootbeams.mod_rarity.simple_swords.unique");
+                    } else if (value == styleToColor(Styles.LEGENDARY)) {
+                        name = Component.translatable("lootbeams.mod_rarity.simple_swords.legendary");
+                    }
+                    if (name != null) {
+                        return Optional.of(LBItemEntity.of(itemEntity, LBRarity.of(name, LBColor.of(value), -1)));
+                    }
                 }
             } else if (itemEntity.getItem().getItem() instanceof RunicSwordItem) {
-                return Option.some(LBItemEntity.of(itemEntity, LBRarity.of(Component.translatable("lootbeams.mod_rarity.simple_swords.common"), LBColor.of(styleToColor(Styles.RUNIC)), 0)));
+                return Optional.of(LBItemEntity.of(itemEntity, LBRarity.of(Component.translatable("lootbeams.mod_rarity.simple_swords.common"), LBColor.of(styleToColor(Styles.RUNIC)), 0)));
             }
 
-            return Option.none();
+            return Optional.empty();
 
         });
     }
