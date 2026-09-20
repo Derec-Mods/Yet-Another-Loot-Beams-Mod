@@ -15,6 +15,7 @@ import com.mojang.math.Axis;
 import com.clefal.nirvana_lib.relocated.io.vavr.control.Option;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.player.LocalPlayer;
+import net.minecraft.client.renderer.LightTexture;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.resources.ResourceLocation;

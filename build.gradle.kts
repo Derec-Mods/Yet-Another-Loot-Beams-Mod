@@ -118,6 +118,25 @@ modstitch {
         }
     }
 
+    if (modstitch.isLoom) {
+        afterEvaluate {
+            tasks.named<JavaExec>("runClient") {
+                javaLauncher.set(
+                    javaToolchains.launcherFor {
+                        languageVersion.set(
+                            JavaLanguageVersion.of(
+                                when (minecraft) {
+                                    "26.1.2" -> 25
+                                    else -> 21
+                                }
+                            )
+                        )
+                    }
+                )
+            }
+        }
+    }
+
     // ModDevGradle (NeoForge, Forge, Forgelike)
     moddevgradle {
 
