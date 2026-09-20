@@ -13,3 +13,6 @@ Includes:
 Forked from [Loot Beams Refork](https://github.com/TUsama/Loot-Beams-Refork) under the [MIT](LICENSE) license.
 
 Originally by shiroroku, then EnsoX and TUsama.
+
+[Nirvana Library](https://github.com/TUsama/NirvanaLib) by Clefal, MIT.
+[Fzzy Config](https://modrinth.com/mod/fzzy-config) by fzzyhmstrs.
