@@ -1,7 +1,5 @@
 package me.clefal.lootbeams.modules.beam;
 
-//? <1.21.4
-import com.clefal.nirvana_lib.client.render.rendertype.RenderTypeCreator;
 import com.mojang.blaze3d.vertex.DefaultVertexFormat;
 import me.clefal.lootbeams.CommonClass;
 import me.clefal.lootbeams.config.configs.LightConfig;
@@ -44,7 +42,7 @@ public BeamRenderType(String $$0, VertexFormat $$1, VertexFormat.Mode $$2, int $
     //public static final RenderType LOOT_BEAM_RENDERTYPE = RenderType.lightning();
     //protected static final RenderType GLOW = LightConfig.lightConfig.beam.solid_beam ? RenderType.entityTranslucentEmissive(GLOW_TEXTURE) : RenderType.entityCutout(GLOW_TEXTURE);
     //? <1.21.4 {
-    public static final Function<ResourceLocation, RenderType> beamOnShader = Util.memoize(location -> RenderTypeCreator.createRenderType("lb_beam", DefaultVertexFormat.PARTICLE, VertexFormat.Mode.QUADS, 256, false, true, CompositeState.builder()
+    public static final Function<ResourceLocation, RenderType> beamOnShader = Util.memoize(location -> create("lb_beam", DefaultVertexFormat.PARTICLE, VertexFormat.Mode.QUADS, 256, false, true, CompositeState.builder()
             .setShaderState(new RenderStateShard.ShaderStateShard(GameRenderer::getParticleShader))
             .setTextureState(new RenderStateShard.TextureStateShard(location, false, false))
             .setTransparencyState(TransparencyStateShard.TRANSLUCENT_TRANSPARENCY)
