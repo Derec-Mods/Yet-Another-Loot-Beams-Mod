@@ -39,8 +39,15 @@ public record LBRarity(Component name, LBColor color, int absoluteOrdinal, Modif
     /*private static int grabColorWhenOnStupidFabric(Rarity rarity){
         //? 1.20.1 {
         return rarity.color.getColor();
-        //?} else {
+        //?} elif <26.2 {
         /^return rarity.color().getColor();
+        ^///?} else {
+        /^return switch (rarity) {
+            case UNCOMMON -> 0xFFFF55;
+            case RARE -> 0x55FFFF;
+            case EPIC -> 0xFF55FF;
+            default -> 0xFFFFFF;
+        };
         ^///?}
     }
     *///?}

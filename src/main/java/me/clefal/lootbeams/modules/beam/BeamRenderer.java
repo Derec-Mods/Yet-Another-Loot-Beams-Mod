@@ -16,7 +16,10 @@ import com.clefal.nirvana_lib.relocated.io.vavr.control.Option;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.client.renderer.LightTexture;
+//? <26.2
 import net.minecraft.client.renderer.MultiBufferSource;
+//? >=26.2
+//import net.minecraft.client.renderer.SubmitNodeCollector;
 import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
@@ -38,6 +41,7 @@ public class BeamRenderer {
     }
 
 
+    //? <26.2 {
     public void renderLootBeam(PoseStack stack, MultiBufferSource buffer, float partialTick, LBItemEntity LBItemEntity, boolean isShaderOn){
         PoseCopy last = (PoseCopy) ((Object) stack.last());
         this.isShaderOn = isShaderOn;
@@ -45,6 +49,10 @@ public class BeamRenderer {
     }
 
     public void renderLootBeam(MultiBufferSource buffer, LootBeamRenderState.BeamRenderState renderState) {
+    //?} else {
+    /*public void renderLootBeam(SubmitNodeCollector buffer, LootBeamRenderState.BeamRenderState renderState) {
+        this.isShaderOn = renderState.isShaderOn;
+    *///?}
 
         LBColor color = renderState.rarity.color();
         int lifeTime = renderState.fadeIn;
@@ -112,39 +120,34 @@ public class BeamRenderer {
         stack.pushPose();
         stack.mulPose(Axis.YP.rotation((float) v));
         //Render main beam
-        Function<ResourceLocation, VertexConsumer> getBeam = location -> buffer.getBuffer(BeamRenderType.getBeamRendertype(location, isShaderOn));
         {
             stack.pushPose();
             stack.translate(0, yOffset + 1, 0);
-            VertexConsumer buffer1 = getBeam.apply(MAIN_BEAM);
             //main beam
             {
 
-                draw(stack, buffer1, R, G, B, beamAlpha, -beamRadius, beamRadius, -beamHeight, beamHeight, 0.001f);
+                emit(buffer, stack, MAIN_BEAM, R, G, B, beamAlpha, -beamRadius, beamRadius, -beamHeight, beamHeight, 0.001f);
                 //main beam bloom
                 {
-                    draw(stack, buffer1, R, G, B, bloomAlpha, -bloomRadius, bloomRadius, -beamHeight, beamHeight, 0.001f);
+                    emit(buffer, stack, MAIN_BEAM, R, G, B, bloomAlpha, -bloomRadius, bloomRadius, -beamHeight, beamHeight, 0.001f);
                 }
             }
-            //main beam bloom
 
             //beam top
             {
-                VertexConsumer buffer2 = getBeam.apply(BEAM_TOP);
-
                 if (!isShaderOn){
-                    draw(stack, buffer2, R, G, B, beamAlpha, beamRadius, -beamRadius, beamHeight * 3 / 2, beamHeight, 0.001f);
+                    emit(buffer, stack, BEAM_TOP, R, G, B, beamAlpha, beamRadius, -beamRadius, beamHeight * 3 / 2, beamHeight, 0.001f);
                 } else {
                     beamHeight = beamHeight - 0.25f;
-                    draw(stack, buffer2, R, G, B, beamAlpha, -beamRadius, beamRadius, beamHeight, beamHeight * 3 / 2, 0.001f);
+                    emit(buffer, stack, BEAM_TOP, R, G, B, beamAlpha, -beamRadius, beamRadius, beamHeight, beamHeight * 3 / 2, 0.001f);
                 }
 
                 //beam top bloom
                 {
                     if (!isShaderOn){
-                        draw(stack, buffer2, R, G, B, bloomAlpha, bloomRadius, -bloomRadius, beamHeight * 3 / 2, beamHeight, 0.001f);
+                        emit(buffer, stack, BEAM_TOP, R, G, B, bloomAlpha, bloomRadius, -bloomRadius, beamHeight * 3 / 2, beamHeight, 0.001f);
                     } else {
-                        draw(stack, buffer2, R, G, B, bloomAlpha, -bloomRadius, bloomRadius, beamHeight, beamHeight * 3 / 2, 0.001f);
+                        emit(buffer, stack, BEAM_TOP, R, G, B, bloomAlpha, -bloomRadius, bloomRadius, beamHeight, beamHeight * 3 / 2, 0.001f);
                     }
 
                 }
@@ -167,7 +170,7 @@ public class BeamRenderer {
                 stack.mulPose(Axis.XP.rotationDegrees(90));
                 float radius = glowConfig.glow_effect_radius.get();
                 stack.translate(0, -radius, -0.01f);
-                renderGlow(stack, getBeam.apply(BeamRenderType.GLOW_TEXTURE), R, G, B, ((int) (beamAlpha * 0.4f)), radius);
+                emit(buffer, stack, BeamRenderType.GLOW_TEXTURE, R, G, B, ((int) (beamAlpha * 0.4f)), -radius, radius, 0, 1, 0);
                 stack.popPose();
             }
 
@@ -176,22 +179,27 @@ public class BeamRenderer {
     }
 
 
-    private void renderGlow(PoseStack stack, VertexConsumer builder, int red, int green, int blue, int alpha, float radius) {
-        // draw a quad on the xz plane facing up with a radius of 0.5
-        draw(stack, builder, red, green, blue, alpha, -radius, radius, 0, 1, 0);
+    //? <26.2 {
+    private void emit(MultiBufferSource buffer, PoseStack stack, ResourceLocation location, int red, int green, int blue, int alpha, float minX, float maxX, float minY, float maxY, float z) {
+        draw(stack.last(), buffer.getBuffer(BeamRenderType.getBeamRendertype(location, isShaderOn)), red, green, blue, alpha, minX, maxX, minY, maxY, z);
     }
+    //?} else {
+    /*private void emit(SubmitNodeCollector buffer, PoseStack stack, ResourceLocation location, int red, int green, int blue, int alpha, float minX, float maxX, float minY, float maxY, float z) {
+        buffer.submitCustomGeometry(stack, BeamRenderType.getBeamRendertype(location, isShaderOn), (pose, consumer) ->
+                draw(pose, consumer, red, green, blue, alpha, minX, maxX, minY, maxY, z));
+    }
+    *///?}
 
-    private void draw(PoseStack stack, VertexConsumer builder, int red, int green, int blue, int alpha, float minX, float maxX, float minY, float maxY, float z){
+    private void draw(PoseStack.Pose matrixentry, VertexConsumer builder, int red, int green, int blue, int alpha, float minX, float maxX, float minY, float maxY, float z){
         if (isShaderOn) {
-            drawOnShader(stack, builder, red, green, blue, alpha, minX, maxX, minY, maxY, z);
+            drawOnShader(matrixentry, builder, red, green, blue, alpha, minX, maxX, minY, maxY, z);
         } else {
-            drawWithoutShader(stack, builder, red, green, blue, alpha, minX, maxX, minY, maxY, z);
+            drawWithoutShader(matrixentry, builder, red, green, blue, alpha, minX, maxX, minY, maxY, z);
         }
 
     }
 
-    private void drawWithoutShader(PoseStack stack, VertexConsumer builder, int red, int green, int blue, int alpha, float minX, float maxX, float minY, float maxY, float z){
-        PoseStack.Pose matrixentry = stack.last();
+    private void drawWithoutShader(PoseStack.Pose matrixentry, VertexConsumer builder, int red, int green, int blue, int alpha, float minX, float maxX, float minY, float maxY, float z){
         Matrix4f matrixpose = matrixentry.pose();
         //? legacy {
         /*builder.vertex(matrixpose, minX, minY, z).color(red, green, blue, alpha).uv(0, 0).overlayCoords(OverlayTexture.NO_OVERLAY).uv2(15728880).normal(matrixentry.normal(), 0.0F, 1.0F, 0.0F).endVertex();
@@ -207,8 +215,7 @@ public class BeamRenderer {
 
     }
 
-    private void drawOnShader(PoseStack stack, VertexConsumer builder, int red, int green, int blue, int alpha, float minX, float maxX, float minY, float maxY, float z){
-        PoseStack.Pose matrixentry = stack.last();
+    private void drawOnShader(PoseStack.Pose matrixentry, VertexConsumer builder, int red, int green, int blue, int alpha, float minX, float maxX, float minY, float maxY, float z){
         Matrix4f matrixpose = matrixentry.pose();
         //? legacy {
         /*builder.vertex(matrixpose, minX, minY, z).uv(0, 1).color(red, green, blue, alpha).uv2(15728880).endVertex();

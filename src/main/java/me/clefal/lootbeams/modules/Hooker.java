@@ -12,6 +12,7 @@ import me.clefal.lootbeams.events.EntityRenderDispatcherHookEvent;
 import me.clefal.lootbeams.modules.beam.LightConfigHandler;
 import me.clefal.lootbeams.modules.tooltip.LootInformationEnableStatus;
 import com.mojang.blaze3d.vertex.PoseStack;
+//? <1.21.10
 import net.minecraft.client.renderer.MultiBufferSource;
 
 import net.minecraft.client.renderer.entity.EntityRenderDispatcher;
@@ -114,7 +115,9 @@ public class Hooker {
     }
 
     //? >=1.21.10 {
-    /*public static void handleTuple(PoseStack poseStack, LevelRenderState renderState, SubmitNodeCollector nodeCollector, CallbackInfo ci, Tuple3<ItemEntity, Float, Vec3> tuple, EntityRenderDispatcher entityRenderDispatcher) {
+    /*public static final java.util.List<Tuple3<ItemEntity, Float, Vec3>> retainedEntities = new java.util.ArrayList<>();
+
+    public static void handleTuple(PoseStack poseStack, LevelRenderState renderState, SubmitNodeCollector nodeCollector, CallbackInfo ci, Tuple3<ItemEntity, Float, Vec3> tuple, EntityRenderDispatcher entityRenderDispatcher) {
         ItemEntity retainEntity = tuple._1;
         Vec3 entityLocation = tuple._3;
         Vec3 vec3 = renderState.cameraRenderState.pos;

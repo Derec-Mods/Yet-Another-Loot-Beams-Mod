@@ -36,9 +36,11 @@ public class TooltipsModule implements ILBModule {
             return;
         //? <1.21.10 {
         NameTagRenderer.renderNameTag(event.poseStack, event.holder.get(), event.LBItemEntity);
-        //? } else {
+        //? } elif <26.2 {
         /*LootBeamRenderStateSubmitter lootBeamRenderStateSubmitter = (LootBeamRenderStateSubmitter) event.holder.get();
         lootBeamRenderStateSubmitter.loot_Beams_Refork$submitNameTag(LootBeamRenderState.NameTagRenderState.fromLBEntity(event.LBItemEntity, event.poseStack.last().copy()));
+        *///? } else {
+        /*NameTagRenderer.renderNameTag((net.minecraft.client.renderer.SubmitNodeCollector) event.holder.get(), LootBeamRenderState.NameTagRenderState.fromLBEntity(event.LBItemEntity, event.poseStack.last().copy()));
         *///? }
 
 

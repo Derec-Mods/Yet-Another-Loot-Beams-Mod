@@ -77,6 +77,10 @@ object LoomDeps {
                 "26.1.2" -> {
                     modstitchModCompileOnly("maven.modrinth:iris:sZbVsl2Q")
                 }
+
+                "26.2" -> {
+                    modstitchModCompileOnly("maven.modrinth:iris:gxZWWnKH")
+                }
             }
         }
     }

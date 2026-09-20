@@ -1,5 +1,6 @@
 package me.clefal.lootbeams.modules;
 
+//? <1.21.10
 import net.minecraft.client.renderer.MultiBufferSource;
 //? >=1.21.10
 //import net.minecraft.client.renderer.SubmitNodeCollector;

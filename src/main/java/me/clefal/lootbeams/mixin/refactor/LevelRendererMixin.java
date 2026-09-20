@@ -34,10 +34,10 @@ public abstract class LevelRendererMixin {
     @Final
     private EntityRenderDispatcher entityRenderDispatcher;
 
-    @Shadow
+    //? <26.2 {
+    /^@Shadow
     protected abstract EntityRenderState extractEntity(Entity entity, float partialTick);
 
-    private final List<Tuple3<ItemEntity, Float, Vec3>> retainEntities = new ArrayList<>();
     @Inject(
             method = "extractVisibleEntities", at = @At(
             value = "INVOKE",
@@ -49,9 +49,10 @@ public abstract class LevelRendererMixin {
             var x = Mth.lerp((double)f, entity.xOld, entity.getX());
             var y = Mth.lerp((double)f, entity.yOld, entity.getY());
             var z = Mth.lerp((double)f, entity.zOld, entity.getZ());
-            this.retainEntities.add(Tuple.of(item, deltaTracker.getGameTimeDeltaTicks(), new Vec3(x, y, z)));
+            Hooker.retainedEntities.add(Tuple.of(item, deltaTracker.getGameTimeDeltaTicks(), new Vec3(x, y, z)));
         }
     }
+    ^///?}
 
     @Inject(
             method = "submitEntities", at = @At(
@@ -59,10 +60,10 @@ public abstract class LevelRendererMixin {
 
     ))
     private void submitEntity(PoseStack poseStack, LevelRenderState renderState, SubmitNodeCollector nodeCollector, CallbackInfo ci){
-        for (var tuple : this.retainEntities) {
+        for (var tuple : Hooker.retainedEntities) {
             Hooker.handleTuple(poseStack, renderState, nodeCollector, ci, tuple, this.entityRenderDispatcher);
         }
-        this.retainEntities.clear();
+        Hooker.retainedEntities.clear();
     }
 
 }

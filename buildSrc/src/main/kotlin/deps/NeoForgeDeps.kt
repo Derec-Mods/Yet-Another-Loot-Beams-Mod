@@ -81,6 +81,10 @@ object NeoForgeDeps {
                 "26.1.2" -> {
                     modstitchModCompileOnly("maven.modrinth:iris:qE5Y7GrZ")
                 }
+
+                "26.2" -> {
+                    modstitchModCompileOnly("maven.modrinth:iris:k55HdONq")
+                }
             }
         }
     }

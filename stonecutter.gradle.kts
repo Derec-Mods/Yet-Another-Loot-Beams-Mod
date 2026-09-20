@@ -38,6 +38,7 @@ allprojects {
         maven("https://maven.fzzyhmstrs.me/")
 
         maven("https://thedarkcolour.github.io/KotlinForForge/")
+        maven("https://repo.nyon.dev/releases")
 
         maven("https://maven.terraformersmc.com/")
 
