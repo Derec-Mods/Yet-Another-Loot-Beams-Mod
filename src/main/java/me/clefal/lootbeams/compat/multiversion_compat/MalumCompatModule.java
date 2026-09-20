@@ -3,8 +3,8 @@ package me.clefal.lootbeams.compat.multiversion_compat;
 
 import com.clefal.nirvana_lib.relocated.io.vavr.API;
 import com.clefal.nirvana_lib.relocated.io.vavr.control.Option;
-import com.clefal.nirvana_lib.relocated.net.neoforged.bus.api.SubscribeEvent;
-import com.clefal.nirvana_lib.utils.ModUtils;
+import me.clefal.lootbeams.bus.SubscribeEvent;
+import me.clefal.lootbeams.utils.ModUtils;
 import com.sammy.malum.MalumMod;
 
 

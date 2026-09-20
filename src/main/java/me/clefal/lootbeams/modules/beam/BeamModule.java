@@ -1,12 +1,12 @@
 package me.clefal.lootbeams.modules.beam;
 
-import com.clefal.nirvana_lib.relocated.net.neoforged.bus.api.SubscribeEvent;
+import me.clefal.lootbeams.bus.SubscribeEvent;
 import me.clefal.lootbeams.LootBeamsConstants;
 import me.clefal.lootbeams.data.new_render.LootBeamRenderState;
 import me.clefal.lootbeams.duck.LootBeamRenderStateSubmitter;
 import me.clefal.lootbeams.events.EntityRenderDispatcherHookEvent;
 import me.clefal.lootbeams.modules.ILBModule;
-import com.clefal.nirvana_lib.relocated.net.neoforged.bus.api.EventPriority;
+import me.clefal.lootbeams.bus.EventPriority;
 
 
 public class BeamModule implements ILBModule {

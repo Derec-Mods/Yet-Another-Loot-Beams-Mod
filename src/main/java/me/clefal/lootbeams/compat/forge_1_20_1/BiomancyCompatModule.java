@@ -2,8 +2,8 @@
 /*package me.clefal.lootbeams.compat.forge_1_20_1;
 
 import com.clefal.nirvana_lib.relocated.io.vavr.control.Option;
-import com.clefal.nirvana_lib.relocated.net.neoforged.bus.api.SubscribeEvent;
-import com.clefal.nirvana_lib.utils.ModUtils;
+import me.clefal.lootbeams.bus.SubscribeEvent;
+import me.clefal.lootbeams.utils.ModUtils;
 import com.github.elenterius.biomancy.BiomancyMod;
 import com.github.elenterius.biomancy.item.ItemTooltipStyleProvider;
 import me.clefal.lootbeams.LootBeamsConstants;

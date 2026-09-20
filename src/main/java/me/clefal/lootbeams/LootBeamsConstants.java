@@ -1,7 +1,6 @@
 package me.clefal.lootbeams;
 
-import com.clefal.nirvana_lib.relocated.net.neoforged.bus.api.BusBuilder;
-import com.clefal.nirvana_lib.relocated.net.neoforged.bus.api.IEventBus;
+import me.clefal.lootbeams.bus.LBEventBus;
 import net.minecraft.resources.ResourceLocation;
 import org.apache.logging.log4j.LogManager;
 import org.slf4j.Logger;
@@ -14,11 +13,5 @@ public class LootBeamsConstants {
     public static final String MODID = "lootbeams";
     public static final ResourceLocation LOOT_DROP = ResourceLocation.tryBuild(MODID, "loot_drop");
     public static final org.apache.logging.log4j.Logger LOGGER = LogManager.getLogger();
-    public static final IEventBus EVENT_BUS = BusBuilder.builder().setExceptionHandler((iEventBus, event, eventListeners, i, throwable) -> {
-        try {
-            throw throwable;
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
-    }).build();
+    public static final LBEventBus EVENT_BUS = new LBEventBus();
 }

@@ -1,7 +1,7 @@
 package me.clefal.lootbeams.modules.dynamicprovider;
 
 import me.clefal.lootbeams.events.LBClientTickEvent;
-import com.clefal.nirvana_lib.relocated.net.neoforged.bus.api.SubscribeEvent;
+import me.clefal.lootbeams.bus.SubscribeEvent;
 
 public class DynamicProvider {
 
