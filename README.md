@@ -2,7 +2,7 @@
 
 This is a client-side Minecraft mod that puts colored loot beams on dropped items.
 
-Needs Nirvana Library and Fzzy Config to run.
+Needs Fzzy Config to run.
 
 Includes:
 - Colored beam + glow on dropped items
@@ -14,5 +14,5 @@ Forked from [Loot Beams Refork](https://github.com/TUsama/Loot-Beams-Refork) und
 
 Originally by shiroroku, then EnsoX and TUsama.
 
-[Nirvana Library](https://github.com/TUsama/NirvanaLib) by Clefal, MIT.
+Incorporates [Nirvana Library](https://github.com/TUsama/NirvanaLib) components by Clefal (MIT) in-house.
 [Fzzy Config](https://modrinth.com/mod/fzzy-config) by fzzyhmstrs.

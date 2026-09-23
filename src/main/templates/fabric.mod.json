@@ -20,7 +20,6 @@
   "depends": {
     "fabricloader": ">=${target_fabricloader}",
     "fabric": "*",
-    "nirvana_lib": ">=${lib_version}",
     "minecraft": "=${target_minecraft}"
   }
 }

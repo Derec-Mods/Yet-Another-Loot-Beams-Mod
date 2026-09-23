@@ -339,7 +339,6 @@ dependencies {
     modstitchModCompileOnly(fzzyString)
     (fzzyString).runtimeOnly()
 
-    ("maven.modrinth:nirvana-library:${findProperty("deps.nirvana") ?: "$loader-$minecraft-$libVersion"}").implementation()
     ("maven.modrinth:common-network:${property("deps.common_network")}").runtimeOnly()
     //loader-specified deps
     DependencyConfig.getDependencies(loaderEnum, minecraft).forEach { dep ->
@@ -383,7 +382,6 @@ msPublishing {
             clientRequired = true
             serverRequired = false
             javaVersions.set(listOf(JavaVersion.toVersion(modstitch.javaVersion.get())))
-            requires("nirvana-library")
         }
 
         // Modrinth options used by both Fabric and Forge
@@ -392,7 +390,6 @@ msPublishing {
             version = "${loader}-${minecraft}-${modstitch.metadata.modVersion.get()}"
             projectId = "rp7ooqvq"
             minecraftVersions.add(minecraft)
-            requires("nirvana-library")
         }
 
         if (cfToken.isNotBlank()) {
