@@ -1,8 +1,6 @@
 //? if neoforge {
 package me.clefal.lootbeams.loaders.neoforge;
 
-import com.mojang.blaze3d.vertex.DefaultVertexFormat;
-import com.mojang.blaze3d.vertex.VertexFormat;
 import me.clefal.lootbeams.events.LBClientTickEvent;
 import me.clefal.lootbeams.LootBeamsConstants;
 import me.clefal.lootbeams.utils.ResourceLocationHelper;

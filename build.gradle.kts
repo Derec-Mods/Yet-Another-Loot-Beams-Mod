@@ -35,7 +35,7 @@ modstitch {
         "1.21.1" -> 21
         "1.21.4" -> 21
         "1.21.8", "1.21.10", "1.21.11" -> 21
-        "26.1.2", "26.2" -> 25
+        "26.1.2", "26.2", "26.3" -> 25
         else -> throw IllegalArgumentException("Please store the java version for $minecraft in build.gradle.kts!")
     }
 
@@ -77,6 +77,7 @@ modstitch {
                     "1.21.11" -> 70.0
                     "26.1.2" -> 84
                     "26.2" -> 88.0
+                    "26.3" -> 97.1
                     else -> throw IllegalArgumentException("Please store the resource pack version for ${property("deps.minecraft")} in build.gradle.kts! https://minecraft.wiki/w/Pack_format")
                 }.toString()
             )
@@ -106,7 +107,7 @@ modstitch {
         // It's not recommended to store the Fabric Loader version in properties.
         // Make sure its up to date.
         fabricLoaderVersion = when (minecraft) {
-            "26.1.2", "26.2" -> "0.19.5"
+            "26.1.2", "26.2", "26.3" -> "0.19.5"
             else -> "0.16.11"
         }
         configureLoom {
@@ -127,7 +128,7 @@ modstitch {
                         languageVersion.set(
                             JavaLanguageVersion.of(
                                 when (minecraft) {
-                                    "26.1.2", "26.2" -> 25
+                                    "26.1.2", "26.2", "26.3" -> 25
                                     else -> 21
                                 }
                             )
@@ -164,7 +165,7 @@ modstitch {
                         javaLauncher.set(
                             javaToolchains.launcherFor {
                                 languageVersion = JavaLanguageVersion.of(project.modstitch.javaVersion.get())
-                                if (minecraft != "26.1.2" && minecraft != "26.2") {
+                                if (minecraft != "26.1.2" && minecraft != "26.2" && minecraft != "26.3") {
                                     vendor = JvmVendorSpec.JETBRAINS
                                 }
                             }
@@ -187,7 +188,7 @@ modstitch {
             isModDevGradleLegacy -> configs.register("${mid}-1.20.1")
             minecraft == "1.21.1" -> configs.register("${mid}-1.21")
             minecraft == "1.21.4" -> configs.register("${mid}-1.21.4")
-            minecraft == "26.2" -> configs.register("${mid}-26.2")
+            minecraft == "26.2" || minecraft == "26.3" -> configs.register("${mid}-26.2")
             minecraft == "1.21.10" || minecraft == "1.21.11" || minecraft == "26.1.2" -> configs.register("${mid}-1.21.10")
             else -> configs.register("${mid}-default")
         }
@@ -216,7 +217,8 @@ stonecutter {
         "legacy" to (minecraft == "1.20.1"),
         "malum" to (modstitch.minecraftVersion.get() == "1.20.1" || (loader.equals("neoforge") && modstitch.minecraftVersion.get() == "1.21.1")),
         "biomancy" to (loader.equals("forge") && (minecraft == "1.20.1")),
-        "simplesword" to ((minecraft == "1.21.1") || (minecraft == "1.20.1"))
+        "simplesword" to ((minecraft == "1.21.1") || (minecraft == "1.20.1")),
+        "iris" to !(loader.equals("neoforge") && minecraft == "26.3")
     ))
 
     replacements.string(current.version >= "1.21.10" && loader.equals("fabric")) {
@@ -254,6 +256,10 @@ stonecutter {
     replacements.string(current.parsed >= "26.2") {
         replace("I18n.exists(", "net.minecraft.locale.Language.getInstance().has(")
         replace("mc.screen", "mc.gui.screen()")
+    }
+
+    replacements.string(current.parsed >= "26.3") {
+        replace(".mulPose(", ".rotate(")
     }
 
     replacements.string(current.parsed >= "26.1" && loader.equals("fabric")) {

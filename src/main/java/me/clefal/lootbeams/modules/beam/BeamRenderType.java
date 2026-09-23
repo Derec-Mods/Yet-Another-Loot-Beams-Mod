@@ -1,9 +1,11 @@
 package me.clefal.lootbeams.modules.beam;
 
+//? <1.21.8 {
 import com.mojang.blaze3d.vertex.DefaultVertexFormat;
+import com.mojang.blaze3d.vertex.VertexFormat;
+//?}
 import me.clefal.lootbeams.CommonClass;
 import me.clefal.lootbeams.config.configs.LightConfig;
-import com.mojang.blaze3d.vertex.VertexFormat;
 
 
 import net.minecraft.Util;

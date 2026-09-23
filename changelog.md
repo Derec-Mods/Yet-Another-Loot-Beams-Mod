@@ -1,4 +1,5 @@
 ### V3.4.7
+upgrade to 26.3
 upgrade to 26.2
 (above 1.21.4) fix mixin crash in some versions
 (1.20.1 forge & 1.21.1 neoforge) add RarityCore Compat

@@ -81,6 +81,10 @@ object LoomDeps {
                 "26.2" -> {
                     modstitchModCompileOnly("maven.modrinth:iris:gxZWWnKH")
                 }
+
+                "26.3" -> {
+                    modstitchModCompileOnly("maven.modrinth:iris:bAdKrpw8")
+                }
             }
         }
     }

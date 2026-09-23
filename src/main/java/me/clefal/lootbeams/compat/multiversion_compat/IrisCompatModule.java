@@ -1,3 +1,4 @@
+//? iris {
 package me.clefal.lootbeams.compat.multiversion_compat;
 
 import me.clefal.lootbeams.bus.SubscribeEvent;
@@ -28,3 +29,4 @@ public class IrisCompatModule implements ILBCompatModule {
         event.isShaderOn = IrisApi.getInstance().isShaderPackInUse();
     }
 }
+//?}

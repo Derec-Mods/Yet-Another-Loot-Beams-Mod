@@ -85,6 +85,9 @@ object NeoForgeDeps {
                 "26.2" -> {
                     modstitchModCompileOnly("maven.modrinth:iris:k55HdONq")
                 }
+
+                "26.3" -> {
+                }
             }
         }
     }
