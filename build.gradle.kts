@@ -53,10 +53,11 @@ modstitch {
     val mid = "lootbeams"
     metadata {
         modId = mid
-        modName = "Loot Beams Refork"
+        modName = "Yet Another Loot Beams Mod"
         modVersion = modv
         modGroup = "com.clefal"
         modAuthor = "Clefal"
+        modCredits = "DerexXD"
         modDescription =
             "Loot items, guided by light!"
         modLicense = "MIT"
@@ -66,7 +67,7 @@ modstitch {
         replacementProperties.populate {
             // You can put any other replacement properties/metadata here that
             // modstitch doesn't initially support. Some examples below.
-            put("mod_issue_tracker", "https://github.com/TUsama/Loot-Beams-Refork/issues")
+            put("mod_issue_tracker", "https://github.com/Derec-Mods/Yet-Another-Loot-Beams-Mod/issues")
             put(
                 "pformat", when (property("deps.minecraft")) {
                     "1.20.1" -> 15

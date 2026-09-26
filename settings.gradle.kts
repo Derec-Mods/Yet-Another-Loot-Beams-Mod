@@ -56,6 +56,6 @@ stonecutter {
     }
 }
 
-rootProject.name = "Loot-Beams-Refork"
+rootProject.name = "Yet-Another-Loot-Beams-Mod"
 includeBuild("modstitch")
 

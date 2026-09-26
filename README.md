@@ -1,4 +1,4 @@
-# Yet-Another-Loot-Beams-Mod
+# Yet Another Loot Beams Mod
 
 This is a client-side Minecraft mod that puts colored loot beams on dropped items.
 
@@ -12,7 +12,9 @@ Includes:
 
 Forked from [Loot Beams Refork](https://github.com/TUsama/Loot-Beams-Refork) under the [MIT](LICENSE) license.
 
-Originally by shiroroku, then EnsoX and TUsama.
+### Credits
+- Maintained by **DerexXD**
+- Originally by **shiroroku**, then **EnsoX** and **TUsama**
+- Incorporates [Nirvana Library](https://github.com/TUsama/NirvanaLib) components by **Clefal** (MIT) in-house
+- [Fzzy Config](https://modrinth.com/mod/fzzy-config) by **fzzyhmstrs**
 
-Incorporates [Nirvana Library](https://github.com/TUsama/NirvanaLib) components by Clefal (MIT) in-house.
-[Fzzy Config](https://modrinth.com/mod/fzzy-config) by fzzyhmstrs.

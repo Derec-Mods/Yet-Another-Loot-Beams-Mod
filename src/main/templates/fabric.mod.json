@@ -4,6 +4,16 @@
   "name": "${mod_name}",
   "version": "${mod_version}",
   "description": "${mod_description}",
+  "authors": [
+    "${mod_author}"
+  ],
+  "contributors": [
+    "${mod_credits}"
+  ],
+  "contact": {
+    "issues": "${mod_issue_tracker}"
+  },
+  "license": "${mod_license}",
   "environment": "*",
   "entrypoints": {
     "main": [
