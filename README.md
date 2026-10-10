@@ -1,5 +1,8 @@
 # Yet Another Loot Beams Mod
 
+<img width="600" alt="Loot Beams Preview" src="https://github.com/user-attachments/assets/8f5af6d1-bc62-4205-8cc2-d33a93f66a69" />
+
+
 This is a client-side Minecraft mod that puts colored loot beams on dropped items.
 
 Needs Fzzy Config to run.
