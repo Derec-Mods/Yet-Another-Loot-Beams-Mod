@@ -15,13 +15,13 @@ import com.mojang.math.Axis;
 import java.util.Optional;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.player.LocalPlayer;
-import net.minecraft.client.renderer.LightTexture;
+import net.minecraft.client.renderer.Lightmap;
 //? <26.2
-import net.minecraft.client.renderer.MultiBufferSource;
+//import net.minecraft.client.renderer.MultiBufferSource;
 //? >=26.2
-//import net.minecraft.client.renderer.SubmitNodeCollector;
+import net.minecraft.client.renderer.SubmitNodeCollector;
 import net.minecraft.client.renderer.texture.OverlayTexture;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.util.Mth;
 import org.joml.Matrix4f;
 import org.joml.Vector3f;
@@ -31,8 +31,8 @@ import java.util.function.Function;
 
 public class BeamRenderer {
 
-    private static final ResourceLocation MAIN_BEAM = CommonClass.id("textures/entity/main_beam.png");
-    private static final ResourceLocation BEAM_TOP = CommonClass.id("textures/entity/beam_top.png");
+    private static final Identifier MAIN_BEAM = CommonClass.id("textures/entity/main_beam.png");
+    private static final Identifier BEAM_TOP = CommonClass.id("textures/entity/beam_top.png");
     public static final BeamRenderer INSTANCE = new BeamRenderer();
 
     private boolean isShaderOn = false;
@@ -42,17 +42,17 @@ public class BeamRenderer {
 
 
     //? <26.2 {
-    public void renderLootBeam(PoseStack stack, MultiBufferSource buffer, float partialTick, LBItemEntity LBItemEntity, boolean isShaderOn){
+    /*public void renderLootBeam(PoseStack stack, MultiBufferSource buffer, float partialTick, LBItemEntity LBItemEntity, boolean isShaderOn){
         PoseCopy last = (PoseCopy) ((Object) stack.last());
         this.isShaderOn = isShaderOn;
         renderLootBeam(buffer, LootBeamRenderState.BeamRenderState.make(LBItemEntity, last.loot_Beams_Refork$copy(), partialTick, isShaderOn));
     }
 
     public void renderLootBeam(MultiBufferSource buffer, LootBeamRenderState.BeamRenderState renderState) {
-    //?} else {
-    /*public void renderLootBeam(SubmitNodeCollector buffer, LootBeamRenderState.BeamRenderState renderState) {
+    *///?} else {
+    public void renderLootBeam(SubmitNodeCollector buffer, LootBeamRenderState.BeamRenderState renderState) {
         this.isShaderOn = renderState.isShaderOn;
-    *///?}
+    //?}
 
         LBColor color = renderState.rarity.color();
         int lifeTime = renderState.fadeIn;
@@ -180,15 +180,15 @@ public class BeamRenderer {
 
 
     //? <26.2 {
-    private void emit(MultiBufferSource buffer, PoseStack stack, ResourceLocation location, int red, int green, int blue, int alpha, float minX, float maxX, float minY, float maxY, float z) {
+    /*private void emit(MultiBufferSource buffer, PoseStack stack, Identifier location, int red, int green, int blue, int alpha, float minX, float maxX, float minY, float maxY, float z) {
         draw(stack.last(), buffer.getBuffer(BeamRenderType.getBeamRendertype(location, isShaderOn)), red, green, blue, alpha, minX, maxX, minY, maxY, z);
     }
-    //?} else {
-    /*private void emit(SubmitNodeCollector buffer, PoseStack stack, ResourceLocation location, int red, int green, int blue, int alpha, float minX, float maxX, float minY, float maxY, float z) {
+    *///?} else {
+    private void emit(SubmitNodeCollector buffer, PoseStack stack, Identifier location, int red, int green, int blue, int alpha, float minX, float maxX, float minY, float maxY, float z) {
         buffer.submitCustomGeometry(stack, BeamRenderType.getBeamRendertype(location, isShaderOn), (pose, consumer) ->
                 draw(pose, consumer, red, green, blue, alpha, minX, maxX, minY, maxY, z));
     }
-    *///?}
+    //?}
 
     private void draw(PoseStack.Pose matrixentry, VertexConsumer builder, int red, int green, int blue, int alpha, float minX, float maxX, float minY, float maxY, float z){
         if (isShaderOn) {

@@ -1,5 +1,5 @@
 //? if =1.21.1 {
-package me.clefal.lootbeams.compat.common_1_21_1;
+/*package me.clefal.lootbeams.compat.common_1_21_1;
 
 import me.clefal.lootbeams.bus.SubscribeEvent;
 import me.clefal.lootbeams.utils.ModUtils;
@@ -11,10 +11,10 @@ import me.clefal.lootbeams.events.RegisterLBRarityEvent;
 import me.clefal.lootbeams.modules.ILBCompatModule;
 import com.stereowalker.tiered.Reforged;
 import com.stereowalker.tiered.api.PotentialAttribute;
-import net.minecraft.Util;
+import net.minecraft.util.Util;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.network.chat.Component;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.item.ItemStack;
 
 import java.util.Optional;
@@ -46,7 +46,7 @@ public class TieredReforgedCompatModule implements ILBCompatModule {
                     //copy from ItemStackClientMixin getName
                     ItemStack item1 = itemEntity.getItem();
                     if (item1.get(DataComponents.CUSTOM_NAME) == null && Reforged.hasModifier(item1)) {
-                        ResourceLocation tier = item1.get(Reforged.ComponentsRegistry.MODIFIER);
+                        Identifier tier = item1.get(Reforged.ComponentsRegistry.MODIFIER);
                         PotentialAttribute potentialAttribute = (PotentialAttribute) Reforged.TIER_DATA.getTiers().get(tier);
                         if (potentialAttribute != null) {
                             return Optional.of(LBItemEntity.of(itemEntity, LBRarity.of(
@@ -63,4 +63,4 @@ public class TieredReforgedCompatModule implements ILBCompatModule {
         );
     }
 }
-//?}
+*///?}

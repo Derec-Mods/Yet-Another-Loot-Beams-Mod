@@ -1,5 +1,5 @@
 //? >= 1.21.10 {
-/*package me.clefal.lootbeams.mixin.refactor;
+package me.clefal.lootbeams.mixin.refactor;
 
 import me.clefal.lootbeams.data.new_render.LootBeamRenderState;
 import me.clefal.lootbeams.duck.LootBeamRenderStateStorage;
@@ -31,4 +31,4 @@ public abstract class SubmitNodeStorageMixin implements LootBeamRenderStateSubmi
         ((LootBeamRenderStateStorage) this.order(0)).loot_Beams_Refork$submitNameTag(renderState);
     }
 }
-*///? }
+//? }

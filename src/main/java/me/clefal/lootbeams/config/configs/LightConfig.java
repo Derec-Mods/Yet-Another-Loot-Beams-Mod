@@ -18,7 +18,7 @@ import me.fzzyhmstrs.fzzy_config.validation.misc.ValidatedString;
 import me.fzzyhmstrs.fzzy_config.validation.number.ValidatedFloat;
 import me.fzzyhmstrs.fzzy_config.validation.number.ValidatedInt;
 import net.minecraft.core.registries.BuiltInRegistries;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -92,18 +92,18 @@ public class LightConfig extends Config {
         public boolean only_rare = false;
 
         public boolean only_equipment = true;
-        private final List<ResourceLocation> defaultVanillaWhitelist = ImmutableList.of(
+        private final List<Identifier> defaultVanillaWhitelist = ImmutableList.of(
                 "minecraft:totem_of_undying",
                 "minecraft:end_crystal",
                 "minecraft:nether_star",
                 "minecraft:wither_skeleton_skull",
                 "minecraft:diamond").stream().map(ResourceLocationHelper::fromWholeName).toList();
 
-        public ValidatedSet<ResourceLocation> whitelist_by_name = ValidatedIdentifier.ofRegistry(BuiltInRegistries.ITEM.getDefaultKey(), BuiltInRegistries.ITEM).toSet(defaultVanillaWhitelist);
+        public ValidatedSet<Identifier> whitelist_by_name = ValidatedIdentifier.ofRegistry(BuiltInRegistries.ITEM.getDefaultKey(), BuiltInRegistries.ITEM).toSet(defaultVanillaWhitelist);
         public ValidatedSet<String> whitelist_by_tag = new ValidatedString("#minecraft:air", "#.+:.+").toSet();
         public ValidatedSet<String> whitelist_by_modid = new ValidatedString("lootbeams", new AllowableStrings(x -> !x.isBlank() && !x.contains("#"), ModUtils::getModList)).toSet();
 
-        public ValidatedSet<ResourceLocation> blacklist_by_name = ValidatedIdentifier.ofRegistry(BuiltInRegistries.ITEM.getDefaultKey(), BuiltInRegistries.ITEM).toSet();
+        public ValidatedSet<Identifier> blacklist_by_name = ValidatedIdentifier.ofRegistry(BuiltInRegistries.ITEM.getDefaultKey(), BuiltInRegistries.ITEM).toSet();
         public ValidatedSet<String> blacklist_by_tag = new ValidatedString("#minecraft:air", "#.+:.+").toSet();
         public ValidatedSet<String> blacklist_by_modid = new ValidatedString("lootbeams", new AllowableStrings(x -> !x.isBlank() && !x.contains("#"), ModUtils::getModList)).toSet();
 

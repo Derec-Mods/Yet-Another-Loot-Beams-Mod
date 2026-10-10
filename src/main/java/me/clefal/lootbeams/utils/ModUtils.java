@@ -9,27 +9,27 @@ import java.util.List;
 public class ModUtils {
     public static boolean isModLoaded(String id) {
         //? if fabric {
-        /*return net.fabricmc.loader.api.FabricLoader.getInstance().isModLoaded(id);
-        *///?} elif forge {
+        return net.fabricmc.loader.api.FabricLoader.getInstance().isModLoaded(id);
+        //?} elif forge {
         /*return net.minecraftforge.fml.ModList.get().isLoaded(id);
         *///?} else {
-        return net.neoforged.fml.ModList.get().isLoaded(id);
-        //?}
+        /*return net.neoforged.fml.ModList.get().isLoaded(id);
+        *///?}
     }
 
     public static List<String> getModList() {
         //? if fabric {
-        /*return net.fabricmc.loader.api.FabricLoader.getInstance().getAllMods().stream()
+        return net.fabricmc.loader.api.FabricLoader.getInstance().getAllMods().stream()
                 .map(container -> container.getMetadata().getId())
                 .toList();
-        *///?} elif forge {
+        //?} elif forge {
         /*return net.minecraftforge.fml.ModList.get().getMods().stream()
                 .map(net.minecraftforge.forgespi.language.IModInfo::getModId)
                 .toList();
         *///?} else {
-        return net.neoforged.fml.ModList.get().getMods().stream()
+        /*return net.neoforged.fml.ModList.get().getMods().stream()
                 .map(net.neoforged.neoforgespi.language.IModInfo::getModId)
                 .toList();
-        //?}
+        *///?}
     }
 }

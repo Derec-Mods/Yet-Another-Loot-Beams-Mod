@@ -1,7 +1,7 @@
 package me.clefal.lootbeams;
 
 import me.clefal.lootbeams.utils.ResourceLocationHelper;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 
 public class CommonClass {
 
@@ -10,7 +10,7 @@ public class CommonClass {
 
     }
 
-    public static ResourceLocation id(String path) {
+    public static Identifier id(String path) {
         return ResourceLocationHelper.fromNameAndPath(LootBeamsConstants.MODID, path);
     }
 }

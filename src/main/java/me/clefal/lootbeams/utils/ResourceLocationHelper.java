@@ -1,24 +1,24 @@
 package me.clefal.lootbeams.utils;
 
 import lombok.experimental.UtilityClass;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 
 @UtilityClass
 public class ResourceLocationHelper {
-    public ResourceLocation fromNameAndPath(String name, String path){
+    public Identifier fromNameAndPath(String name, String path){
         //? if !=1.20.1 {
-        return ResourceLocation.fromNamespaceAndPath(name, path);
+        return Identifier.fromNamespaceAndPath(name, path);
         //?} else {
-        /*return new ResourceLocation(name, path);
+        /*return new Identifier(name, path);
         *///?}
 
     }
 
-    public ResourceLocation fromWholeName(String location){
+    public Identifier fromWholeName(String location){
         //? if !=1.20.1 {
-        return ResourceLocation.bySeparator(location, ':');
+        return Identifier.bySeparator(location, ':');
         //?} else {
-        /*return ResourceLocation.of(location, ':');
+        /*return Identifier.of(location, ':');
         *///?}
 
     }

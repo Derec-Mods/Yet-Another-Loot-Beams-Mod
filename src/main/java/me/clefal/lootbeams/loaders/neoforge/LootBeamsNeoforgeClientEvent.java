@@ -1,5 +1,5 @@
 //? if neoforge {
-package me.clefal.lootbeams.loaders.neoforge;
+/*package me.clefal.lootbeams.loaders.neoforge;
 
 import me.clefal.lootbeams.events.LBClientTickEvent;
 import me.clefal.lootbeams.LootBeamsConstants;
@@ -15,7 +15,7 @@ import java.util.function.Consumer;
 
 @EventBusSubscriber(modid = LootBeamsConstants.MODID,
         //? < 1.21.8
-        bus = EventBusSubscriber.Bus.GAME,
+        //bus = EventBusSubscriber.Bus.GAME,
         value = Dist.CLIENT)
 public class LootBeamsNeoforgeClientEvent {
 
@@ -26,4 +26,4 @@ public class LootBeamsNeoforgeClientEvent {
 
     }
 }
-//?}
+*///?}

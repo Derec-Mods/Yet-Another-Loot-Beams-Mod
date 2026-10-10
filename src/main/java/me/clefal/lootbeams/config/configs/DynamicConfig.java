@@ -6,7 +6,7 @@ import me.fzzyhmstrs.fzzy_config.api.ConfigApiJava;
 import me.fzzyhmstrs.fzzy_config.api.RegisterType;
 import me.fzzyhmstrs.fzzy_config.config.Config;
 import me.fzzyhmstrs.fzzy_config.validation.number.ValidatedInt;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 
 public class DynamicConfig extends Config {
     public static DynamicConfig dynamicConfig = ConfigApiJava.registerAndLoadConfig(DynamicConfig::new, RegisterType.CLIENT);

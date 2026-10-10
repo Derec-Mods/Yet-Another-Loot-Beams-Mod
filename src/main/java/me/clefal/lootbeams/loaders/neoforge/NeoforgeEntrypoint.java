@@ -1,6 +1,6 @@
 //? if neoforge {
 
-package me.clefal.lootbeams.loaders.neoforge;
+/*package me.clefal.lootbeams.loaders.neoforge;
 
 import com.mojang.logging.LogUtils;
 import me.clefal.lootbeams.LootBeamsRefork;
@@ -16,4 +16,4 @@ public class NeoforgeEntrypoint {
     }
 }
 
-//?}
+*///?}

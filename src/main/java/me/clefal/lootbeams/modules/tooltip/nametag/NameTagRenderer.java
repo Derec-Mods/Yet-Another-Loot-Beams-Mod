@@ -12,11 +12,11 @@ import com.mojang.math.Axis;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
 import net.minecraft.client.player.LocalPlayer;
-import net.minecraft.client.renderer.LightTexture;
+import net.minecraft.client.renderer.Lightmap;
 //? <26.2
-import net.minecraft.client.renderer.MultiBufferSource;
+//import net.minecraft.client.renderer.MultiBufferSource;
 //? >=26.2
-//import net.minecraft.client.renderer.SubmitNodeCollector;
+import net.minecraft.client.renderer.SubmitNodeCollector;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.item.ItemEntity;
@@ -28,15 +28,15 @@ import java.util.List;
 
 public class NameTagRenderer {
     //? <26.2 {
-    public static void renderNameTag(PoseStack stack, MultiBufferSource buffer, LBItemEntity LBItemEntity){
+    /*public static void renderNameTag(PoseStack stack, MultiBufferSource buffer, LBItemEntity LBItemEntity){
         PoseCopy last = (PoseCopy) ((Object) stack.last());
         renderNameTag(buffer, LootBeamRenderState.NameTagRenderState.fromLBEntity(LBItemEntity, last.loot_Beams_Refork$copy()));
     }
 
     public static void renderNameTag(MultiBufferSource buffer, LootBeamRenderState.NameTagRenderState renderState) {
-    //?} else {
-    /*public static void renderNameTag(SubmitNodeCollector buffer, LootBeamRenderState.NameTagRenderState renderState) {
-    *///?}
+    *///?} else {
+    public static void renderNameTag(SubmitNodeCollector buffer, LootBeamRenderState.NameTagRenderState renderState) {
+    //?}
         LootInfomationConfig.nameTagSection nameTagSection = LootInfomationConfig.lootInfomationConfig.nameTag;
         PoseStack.Pose pose = renderState.poseStack;
         PoseStack stack = new PoseStack();
@@ -54,10 +54,10 @@ public class NameTagRenderer {
             //Render nametags at heights based on player distance
             stack.translate(0.0D, Math.min(1D, Minecraft.getInstance().player.distanceToSqr(renderState.location) * 0.025D) + yOffset, 0.0D);
             //? < 1.21.10 {
-            stack.mulPose(Minecraft.getInstance().getEntityRenderDispatcher().cameraOrientation());
-            //? } else {
-            /*stack.mulPose(Minecraft.getInstance().getEntityRenderDispatcher().camera.rotation());
-            *///? }
+            /*stack.mulPose(Minecraft.getInstance().getEntityRenderDispatcher().cameraOrientation());
+            *///? } else {
+            stack.mulPose(Minecraft.getInstance().getEntityRenderDispatcher().camera.rotation());
+            //? }
             //? if > 1.20.1
             stack.mulPose(Axis.YP.rotationDegrees(180));
 
@@ -87,26 +87,26 @@ public class NameTagRenderer {
     }
 
     //? <26.2 {
-    private static void renderText(Font fontRenderer, PoseStack stack, MultiBufferSource buffer, String text, int foregroundColor, int backgroundColor, float backgroundAlpha) {
-    //?} else {
-    /*private static void renderText(Font fontRenderer, PoseStack stack, SubmitNodeCollector buffer, String text, int foregroundColor, int backgroundColor, float backgroundAlpha) {
-    *///?}
+    /*private static void renderText(Font fontRenderer, PoseStack stack, MultiBufferSource buffer, String text, int foregroundColor, int backgroundColor, float backgroundAlpha) {
+    *///?} else {
+    private static void renderText(Font fontRenderer, PoseStack stack, SubmitNodeCollector buffer, String text, int foregroundColor, int backgroundColor, float backgroundAlpha) {
+    //?}
 
         if (LootInfomationConfig.lootInfomationConfig.nameTag.add_text_border) {
             float w = -fontRenderer.width(text) / 2f;
             int bg = new Color(0, 0, 0, (int) (255 * backgroundAlpha)).getRGB();
             Component comp = Component.literal(text);
             //? <26.2 {
-            fontRenderer.drawInBatch8xOutline(comp.getVisualOrderText(), w, 0f, foregroundColor, bg, stack.last().pose(), buffer, LightTexture.FULL_BRIGHT);
-            //?} else {
-            /*buffer.submitText(stack, w, 0f, comp.getVisualOrderText(), false, Font.DisplayMode.NORMAL, LightTexture.FULL_BRIGHT, foregroundColor, 0, bg);
-            *///?}
+            /*fontRenderer.drawInBatch8xOutline(comp.getVisualOrderText(), w, 0f, foregroundColor, bg, stack.last().pose(), buffer, 15728880);
+            *///?} else {
+            buffer.submitText(stack, w, 0f, comp.getVisualOrderText(), false, Font.DisplayMode.NORMAL, 15728880, foregroundColor, 0, bg);
+            //?}
         } else {
             //? <26.2 {
-            fontRenderer.drawInBatch(text, (float) (-fontRenderer.width(text) / 2), 30f, foregroundColor, false, stack.last().pose(), buffer, Font.DisplayMode.NORMAL, backgroundColor, 15728864);
-            //?} else {
-            /*buffer.submitText(stack, (float) (-fontRenderer.width(text) / 2), 30f, Component.literal(text).getVisualOrderText(), false, Font.DisplayMode.NORMAL, 15728864, foregroundColor, backgroundColor, 0);
-            *///?}
+            /*fontRenderer.drawInBatch(text, (float) (-fontRenderer.width(text) / 2), 30f, foregroundColor, false, stack.last().pose(), buffer, Font.DisplayMode.NORMAL, backgroundColor, 15728864);
+            *///?} else {
+            buffer.submitText(stack, (float) (-fontRenderer.width(text) / 2), 30f, Component.literal(text).getVisualOrderText(), false, Font.DisplayMode.NORMAL, 15728864, foregroundColor, backgroundColor, 0);
+            //?}
         }
     }
 

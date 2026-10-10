@@ -1,14 +1,14 @@
 package me.clefal.lootbeams.modules;
 
 //? <1.21.10
-import net.minecraft.client.renderer.MultiBufferSource;
+//import net.minecraft.client.renderer.MultiBufferSource;
 //? >=1.21.10
-//import net.minecraft.client.renderer.SubmitNodeCollector;
+import net.minecraft.client.renderer.SubmitNodeCollector;
 
 public class Holder {
 
     //? >=1.21.10 {
-    /*private SubmitNodeCollector collector;
+    private SubmitNodeCollector collector;
 
     public Holder(SubmitNodeCollector collector) {
         this.collector = collector;
@@ -17,14 +17,14 @@ public class Holder {
     public SubmitNodeCollector get(){
         return this.collector;
     }
-    *///? } else {
-    private MultiBufferSource bufferSource;
+    //? } else {
+    /*private MultiBufferSource bufferSource;
     public Holder(MultiBufferSource bufferSource) {
         this.bufferSource = bufferSource;
     }
     public MultiBufferSource get(){
         return this.bufferSource;
     }
-    //?}
+    *///?}
 
 }

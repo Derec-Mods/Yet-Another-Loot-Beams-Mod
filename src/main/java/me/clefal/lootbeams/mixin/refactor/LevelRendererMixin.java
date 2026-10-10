@@ -1,5 +1,5 @@
 //? >= 1.21.10 {
-/*package me.clefal.lootbeams.mixin.refactor;
+package me.clefal.lootbeams.mixin.refactor;
 
 import me.clefal.lootbeams.utils.Tuple3;
 import com.llamalad7.mixinextras.sugar.Local;
@@ -12,7 +12,7 @@ import net.minecraft.client.renderer.SubmitNodeCollector;
 import net.minecraft.client.renderer.culling.Frustum;
 import net.minecraft.client.renderer.entity.EntityRenderDispatcher;
 import net.minecraft.client.renderer.entity.state.EntityRenderState;
-import net.minecraft.client.renderer.state.LevelRenderState;
+import net.minecraft.client.renderer.state.level.LevelRenderState;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.item.ItemEntity;
@@ -34,7 +34,7 @@ public abstract class LevelRendererMixin {
     private EntityRenderDispatcher entityRenderDispatcher;
 
     //? <26.2 {
-    /^@Shadow
+    /*@Shadow
     protected abstract EntityRenderState extractEntity(Entity entity, float partialTick);
 
     @Inject(
@@ -51,7 +51,7 @@ public abstract class LevelRendererMixin {
             Hooker.retainedEntities.add(Tuple3.of(item, deltaTracker.getGameTimeDeltaTicks(), new Vec3(x, y, z)));
         }
     }
-    ^///?}
+    *///?}
 
     @Inject(
             method = "submitEntities", at = @At(
@@ -66,4 +66,4 @@ public abstract class LevelRendererMixin {
     }
 
 }
-*///? }
+//? }

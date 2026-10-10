@@ -13,7 +13,7 @@ import me.clefal.lootbeams.bus.SubscribeEvent;
 import draylar.tiered.api.PotentialAttribute;
 import elocindev.tierify.Tierify;
 import net.minecraft.network.chat.Component;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.item.ItemStack;
 
 import java.awt.*;
@@ -59,7 +59,7 @@ public class TierifyCompatModule implements ILBCompatModule {
                     //they don't change this part nice
                     ItemStack item = itemEntity.getItem();
                     if (item.hasTag() && item.getTagElement("display") == null && item.getTagElement("Tiered") != null) {
-                        ResourceLocation tier = new ResourceLocation(item.getTagElement("Tiered").getString("Tier"));
+                        Identifier tier = new Identifier(item.getTagElement("Tiered").getString("Tier"));
                         PotentialAttribute potentialAttribute = Tierify.ATTRIBUTE_DATA_LOADER.getItemAttributes().get(tier);
 
                         if (potentialAttribute != null) {

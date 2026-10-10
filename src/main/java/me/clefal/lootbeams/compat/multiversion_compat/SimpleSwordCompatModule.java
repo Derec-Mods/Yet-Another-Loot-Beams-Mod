@@ -1,6 +1,6 @@
 //~ ss_replacement
 //? simplesword{
-package me.clefal.lootbeams.compat.multiversion_compat;
+/*package me.clefal.lootbeams.compat.multiversion_compat;
 
 import me.clefal.lootbeams.bus.SubscribeEvent;
 import me.clefal.lootbeams.utils.ModUtils;
@@ -71,4 +71,4 @@ public class SimpleSwordCompatModule implements ILBCompatModule {
         return style.getColor().getValue();
     }
 }
-//?}
+*///?}

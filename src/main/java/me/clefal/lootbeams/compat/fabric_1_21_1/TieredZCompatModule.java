@@ -12,7 +12,7 @@ import me.clefal.lootbeams.modules.ILBCompatModule;
 import draylar.tiered.Tiered;
 import draylar.tiered.api.PotentialAttribute;
 import net.minecraft.network.chat.Component;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.item.ItemStack;
 
 import java.util.List;
@@ -55,7 +55,7 @@ public class TieredZCompatModule implements ILBCompatModule {
                     //copy from ItemStackClientMixin getName
                     ItemStack item = itemEntity.getItem();
                     if (item.get(Tiered.TIER) == null) return Optional.empty();
-                    ResourceLocation parse = ResourceLocation.parse(item.get(Tiered.TIER).tier());
+                    Identifier parse = Identifier.parse(item.get(Tiered.TIER).tier());
                     if (item.get(Tiered.TIER) != null && Tiered.ATTRIBUTE_DATA_LOADER.getItemAttributes().containsKey(parse)) {
                         PotentialAttribute potentialAttribute = Tiered.ATTRIBUTE_DATA_LOADER.getItemAttributes().get(parse);
                         if (potentialAttribute != null) {

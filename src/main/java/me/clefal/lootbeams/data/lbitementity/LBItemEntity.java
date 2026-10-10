@@ -5,7 +5,7 @@ import me.clefal.lootbeams.data.lbitementity.rarity.LBRarity;
 import lombok.Getter;
 import lombok.experimental.Accessors;
 import net.minecraft.core.registries.BuiltInRegistries;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.entity.item.ItemEntity;
 import org.jetbrains.annotations.Contract;
 
@@ -14,7 +14,7 @@ import org.jetbrains.annotations.Contract;
 public class LBItemEntity {
 
     private final ItemEntity item;
-    private final ResourceLocation resourceLocation;
+    private final Identifier resourceLocation;
     private LBRarity rarity;
     private boolean isSounded;
     private RenderState canBeRender = RenderState.NONE;

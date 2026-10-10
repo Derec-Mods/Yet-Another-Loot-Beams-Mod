@@ -14,7 +14,7 @@ import me.fzzyhmstrs.fzzy_config.validation.minecraft.ValidatedIdentifier;
 import me.fzzyhmstrs.fzzy_config.validation.misc.ValidatedAny;
 import me.fzzyhmstrs.fzzy_config.validation.misc.ValidatedString;
 import net.minecraft.core.registries.BuiltInRegistries;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 
 import java.util.Map;
 
@@ -45,7 +45,7 @@ public class PhotonCompatConfig extends Config {
 
         public PhotonCompatModule.Strategies affectStrategy = PhotonCompatModule.Strategies.Merge;
 
-        public ValidatedIdentifierMap<ResourceLocation> byItemName = new ValidatedIdentifierMap.Builder<ResourceLocation>()
+        public ValidatedIdentifierMap<Identifier> byItemName = new ValidatedIdentifierMap.Builder<Identifier>()
                 .keyHandler(ValidatedIdentifier.ofRegistry(BuiltInRegistries.ITEM.getDefaultKey(), BuiltInRegistries.ITEM))
                 .valueHandler(new ValidatedIdentifier())
                 .build();

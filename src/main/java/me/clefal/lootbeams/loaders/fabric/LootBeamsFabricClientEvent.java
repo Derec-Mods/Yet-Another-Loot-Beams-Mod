@@ -1,5 +1,5 @@
 //? if fabric {
-/*package me.clefal.lootbeams.loaders.fabric;
+package me.clefal.lootbeams.loaders.fabric;
 
 import me.clefal.lootbeams.LootBeamsConstants;
 import me.clefal.lootbeams.events.LBClientTickEvent;
@@ -11,4 +11,4 @@ public class LootBeamsFabricClientEvent {
         ClientTickEvents.START_CLIENT_TICK.register(client -> LootBeamsConstants.EVENT_BUS.post(new LBClientTickEvent()));
     }
 }
-*///?}
+//?}

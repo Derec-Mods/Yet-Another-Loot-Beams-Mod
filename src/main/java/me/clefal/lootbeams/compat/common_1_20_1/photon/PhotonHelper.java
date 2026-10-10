@@ -15,7 +15,7 @@ import com.lowdragmc.photon.client.gameobject.emitter.particle.ParticleEmitter;
 import me.fzzyhmstrs.fzzy_config.validation.collection.ValidatedIdentifierMap;
 import net.minecraft.client.Minecraft;
 import net.minecraft.core.registries.BuiltInRegistries;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.util.FastColor;
 import net.minecraft.world.entity.item.ItemEntity;
 
@@ -89,12 +89,12 @@ public class PhotonHelper {
     public static void handleFX(EntityRenderDispatcherHookEvent.RenderLootBeamEvent event) {
         PhotonCompatConfig.FXEnable fxEnable = PhotonCompatConfig.getConfig().fxEnable;
         if (!fxEnable.enableFX) return;
-        ValidatedIdentifierMap<ResourceLocation> byItemName = fxEnable.byItemName;
+        ValidatedIdentifierMap<Identifier> byItemName = fxEnable.byItemName;
         ItemEntity item = event.LBItemEntity.item();
-        ResourceLocation key = BuiltInRegistries.ITEM.getKey(item.getItem().getItem());
+        Identifier key = BuiltInRegistries.ITEM.getKey(item.getItem().getItem());
         boolean isSpecial = false;
         if (byItemName.containsKey(key)) {
-            ResourceLocation s = byItemName.get(key);
+            Identifier s = byItemName.get(key);
             if (s != null) {
                 FX fx = FXHelper.getFX(s);
                 if (fx != null) {
@@ -108,7 +108,7 @@ public class PhotonHelper {
 
         }
         if (fxEnable.affectAllBeam && !isSpecial) {
-            ResourceLocation resourceLocation = fxEnable.baseFX.get();
+            Identifier resourceLocation = fxEnable.baseFX.get();
             if (resourceLocation != null) {
                 FX fx = FXHelper.getFX(resourceLocation);
                 if (fx != null) {

@@ -16,7 +16,7 @@ import me.fzzyhmstrs.fzzy_config.validation.minecraft.ValidatedIdentifier;
 import me.fzzyhmstrs.fzzy_config.validation.misc.ValidatedString;
 import me.fzzyhmstrs.fzzy_config.validation.number.ValidatedInt;
 import net.minecraft.core.registries.BuiltInRegistries;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 
 import java.util.List;
 
@@ -49,7 +49,7 @@ public class CustomConfig extends Config {
                 "#c:tools/spears",
                 "#c:tools/knife",
                 "#c:tools/spear");
-        private List<ResourceLocation> defaultBlockItems = ImmutableList.of(
+        private List<Identifier> defaultBlockItems = ImmutableList.of(
                 "weaponmod:bullet",
                 "weaponmod:cannonball",
                 "weaponmod:shot",
@@ -64,13 +64,13 @@ public class CustomConfig extends Config {
 
 
 
-        public ValidatedSet<ResourceLocation> by_name = ValidatedIdentifier.ofRegistry(BuiltInRegistries.ITEM.getDefaultKey(), BuiltInRegistries.ITEM).toSet();
+        public ValidatedSet<Identifier> by_name = ValidatedIdentifier.ofRegistry(BuiltInRegistries.ITEM.getDefaultKey(), BuiltInRegistries.ITEM).toSet();
 
         public ValidatedSet<String> by_tag = new ValidatedString("#minecraft:air", "#.+:.+").toSet(defaultTags);
 
         public ValidatedSet<String> by_modid = new ValidatedString("lootbeams", new AllowableStrings(x -> !x.isBlank() && !x.contains("#"), ModUtils::getModList)).toSet(defaultmodid);
 
-        public ValidatedSet<ResourceLocation> blacklist_by_name = ValidatedIdentifier.ofRegistry(BuiltInRegistries.ITEM.getDefaultKey(), BuiltInRegistries.ITEM).toSet(defaultBlockItems);
+        public ValidatedSet<Identifier> blacklist_by_name = ValidatedIdentifier.ofRegistry(BuiltInRegistries.ITEM.getDefaultKey(), BuiltInRegistries.ITEM).toSet(defaultBlockItems);
     }
 
     public static class RareCondition extends ConfigSection{

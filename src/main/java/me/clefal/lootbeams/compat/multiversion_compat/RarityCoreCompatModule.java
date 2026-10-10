@@ -1,5 +1,5 @@
 //? (1.20.1 && forge) || (1.21.1 && neoforge){
-package me.clefal.lootbeams.compat.multiversion_compat;
+/*package me.clefal.lootbeams.compat.multiversion_compat;
 
 import me.clefal.lootbeams.bus.SubscribeEvent;
 import me.clefal.lootbeams.utils.ModUtils;
@@ -40,4 +40,4 @@ public class RarityCoreCompatModule implements ILBCompatModule {
         });
     }
 }
-//?}
+*///?}

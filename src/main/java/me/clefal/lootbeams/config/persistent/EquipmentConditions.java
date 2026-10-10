@@ -6,12 +6,12 @@ import me.clefal.lootbeams.data.lbitementity.LBItemEntity;
 import me.clefal.lootbeams.events.RegisterConfigConditionEvent;
 import net.minecraft.client.Minecraft;
 
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.item.*;
 //? >=1.21.8 {
-/*import net.minecraft.core.component.DataComponents;
+import net.minecraft.core.component.DataComponents;
 import net.minecraft.world.item.equipment.Equippable;
-*///?}
+//?}
 import java.util.Set;
 import java.util.function.Supplier;
 
@@ -29,12 +29,12 @@ public class EquipmentConditions extends PersistentConfigData<RegisterConfigCond
     }
 
     public static boolean isEquipment(LBItemEntity lbItemEntity) {
-        Set<? extends ResourceLocation> resourceLocations = CustomConfig.customConfig.equipmentRegister.blacklist_by_name.get();
+        Set<? extends Identifier> resourceLocations = CustomConfig.customConfig.equipmentRegister.blacklist_by_name.get();
         var item = lbItemEntity.item().getItem().getItem();
         //? if <=1.21.1
-        boolean b = item instanceof TieredItem;
+        //boolean b = item instanceof TieredItem;
         //? if >1.21.1
-        //boolean b = false;
+        boolean b = false;
         // Mace was added since 1.20.5
 
         //? if >=1.20.5
@@ -42,16 +42,16 @@ public class EquipmentConditions extends PersistentConfigData<RegisterConfigCond
         return !resourceLocations.contains(lbItemEntity.resourceLocation())
                 && (b
                 //? < 1.21.8 {
-                || item instanceof ArmorItem
-                //?} else {
-                /*|| ((Supplier<Boolean>) () -> {
+                /*|| item instanceof ArmorItem
+                *///?} else {
+                || ((Supplier<Boolean>) () -> {
             Equippable equippable = lbItemEntity.item().getItem().get(DataComponents.EQUIPPABLE);
             if (equippable != null && Minecraft.getInstance().player != null){
-                return equippable.canBeEquippedBy(Minecraft.getInstance().player.getType());
+                return equippable.canBeEquippedBy(Minecraft.getInstance().player.getType().builtInRegistryHolder());
             }
             return false;
         }).get()
-                *///?}
+                //?}
                 || item instanceof ShieldItem
                 || item instanceof BowItem
                 || item instanceof CrossbowItem

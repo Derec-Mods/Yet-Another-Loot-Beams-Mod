@@ -5,7 +5,7 @@ import me.clefal.lootbeams.config.impl.ModifyingConfigHandler;
 import me.clefal.lootbeams.data.lbitementity.LBItemEntity;
 import me.fzzyhmstrs.fzzy_config.validation.misc.ValidatedColor;
 import net.minecraft.core.registries.BuiltInRegistries;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.item.ItemStack;
 
 import java.util.Optional;
@@ -26,7 +26,7 @@ public class ConfigColorOverride extends ModifyingConfigHandler {
         LightConfig.CustomColorSetting customColorSetting = LightConfig.lightConfig.customColorSetting;
         if (!customColorSetting.enable_custom_color) return lbItemEntity;
         ItemStack item = lbItemEntity.item().getItem();
-        ResourceLocation resourceLocation = BuiltInRegistries.ITEM.getKey(item.getItem());
+        Identifier resourceLocation = BuiltInRegistries.ITEM.getKey(item.getItem());
         AtomicReference<LBItemEntity> result = new AtomicReference<>(lbItemEntity);
         Supplier<Optional<ValidatedColor.ColorHolder>> o = () -> {
             ValidatedColor.ColorHolder colorHolder = customColorSetting.color_override_by_name.get(resourceLocation);
@@ -36,7 +36,7 @@ public class ConfigColorOverride extends ModifyingConfigHandler {
 
 
         Supplier<Optional<ValidatedColor.ColorHolder>> o1 = () -> {
-            return item.getTags()
+            return item.tags()
                     .map(x -> x.location().toString())
                     .filter(x -> customColorSetting.color_override_by_tag.containsKey("#" + x))
                     .findFirst()

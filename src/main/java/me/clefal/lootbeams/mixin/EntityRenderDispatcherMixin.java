@@ -6,11 +6,11 @@ import me.clefal.lootbeams.modules.Holder;
 import me.clefal.lootbeams.modules.Hooker;
 import com.mojang.blaze3d.vertex.PoseStack;
 //? <1.21.10
-import net.minecraft.client.renderer.MultiBufferSource;
+//import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.entity.EntityRenderDispatcher;
 import net.minecraft.client.renderer.entity.EntityRenderer;
 //? if >=1.21.4
-//import net.minecraft.client.renderer.entity.state.EntityRenderState;
+import net.minecraft.client.renderer.entity.state.EntityRenderState;
 
 import net.minecraft.world.entity.Entity;
 import org.spongepowered.asm.mixin.Mixin;
@@ -19,10 +19,10 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 //? =1.20.1 || fabric {
-/*@Mixin(value = EntityRenderDispatcher.class)
-*///?} else {
-@Mixin(value = EntityRenderDispatcher.class, remap = false)
-//?}
+@Mixin(value = EntityRenderDispatcher.class)
+//?} else {
+/*@Mixin(value = EntityRenderDispatcher.class, remap = false)
+*///?}
 public abstract class EntityRenderDispatcherMixin {
 
 
@@ -53,10 +53,10 @@ public abstract class EntityRenderDispatcherMixin {
     }
     *///?}
     //? if <1.21.4 {
-    /**
+    /*/^*
      * From Neat
      *
-     */
+     ^/
     @Inject(
             method = "Lnet/minecraft/client/renderer/entity/EntityRenderDispatcher;render(Lnet/minecraft/world/entity/Entity;DDDFFLcom/mojang/blaze3d/vertex/PoseStack;Lnet/minecraft/client/renderer/MultiBufferSource;I)V",
             at = @At(
@@ -70,7 +70,7 @@ public abstract class EntityRenderDispatcherMixin {
 
 
     }
-    //?}
+    *///?}
 
     //? if =1.21.8 {
     /*@Inject(

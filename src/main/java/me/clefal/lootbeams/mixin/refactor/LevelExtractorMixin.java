@@ -1,5 +1,5 @@
 //? >= 26.2 {
-/*package me.clefal.lootbeams.mixin.refactor;
+package me.clefal.lootbeams.mixin.refactor;
 
 import me.clefal.lootbeams.utils.Tuple3;
 import com.llamalad7.mixinextras.sugar.Local;
@@ -8,7 +8,7 @@ import net.minecraft.client.Camera;
 import net.minecraft.client.DeltaTracker;
 import net.minecraft.client.renderer.culling.Frustum;
 import net.minecraft.client.renderer.extract.LevelExtractor;
-import net.minecraft.client.renderer.state.LevelRenderState;
+import net.minecraft.client.renderer.state.level.LevelRenderState;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.item.ItemEntity;
@@ -35,4 +35,4 @@ public class LevelExtractorMixin {
         }
     }
 }
-*///? }
+//? }

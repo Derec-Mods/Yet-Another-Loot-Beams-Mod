@@ -13,18 +13,18 @@ import me.clefal.lootbeams.modules.beam.LightConfigHandler;
 import me.clefal.lootbeams.modules.tooltip.LootInformationEnableStatus;
 import com.mojang.blaze3d.vertex.PoseStack;
 //? <1.21.10
-import net.minecraft.client.renderer.MultiBufferSource;
+//import net.minecraft.client.renderer.MultiBufferSource;
 
 import net.minecraft.client.renderer.entity.EntityRenderDispatcher;
 import net.minecraft.client.renderer.entity.EntityRenderer;
 //? >=1.21.8 {
-/*import net.minecraft.client.renderer.entity.state.EntityRenderState;
-*///?}
+import net.minecraft.client.renderer.entity.state.EntityRenderState;
+//?}
 
 //? >=1.21.10 {
-/*import net.minecraft.client.renderer.state.LevelRenderState;
+import net.minecraft.client.renderer.state.level.LevelRenderState;
 import net.minecraft.client.renderer.SubmitNodeCollector;
-*///?}
+//?}
 
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.item.ItemEntity;
@@ -63,7 +63,7 @@ public class Hooker {
         }
     }
     //? >=1.21.8 {
-    /*public static void lootBeamEntityDispatcherHookWithOffset(Entity entity, double offsetX, double offsetY, double offsetZ, float entityYRot, float partialTicks, PoseStack poseStack, Holder holder, int light, EntityRenderer<? super Entity, EntityRenderState> renderer, CallbackInfo ci, EntityRenderState s){
+    public static void lootBeamEntityDispatcherHookWithOffset(Entity entity, double offsetX, double offsetY, double offsetZ, float entityYRot, float partialTicks, PoseStack poseStack, Holder holder, int light, EntityRenderer<? super Entity, EntityRenderState> renderer, CallbackInfo ci, EntityRenderState s){
         Vec3 vec3 = renderer.getRenderOffset(s);
         double d3 = offsetX + vec3.x();
         double d0 = offsetY + vec3.y();
@@ -73,7 +73,7 @@ public class Hooker {
         lootBeamEntityDispatcherHook(entity, d3, d0, d1, entityYRot, partialTicks, poseStack, holder, light, ci);
         poseStack.popPose();
     }
-*///?}
+//?}
 
     private static void renderLootInformation(double worldX, double worldY, double worldZ, float entityYRot, float partialTicks, PoseStack poseStack, Holder holder, int light, LBItemEntity lbItemEntity1) {
         var tooltipsConfig = LootInfomationConfig.lootInfomationConfig.lootInformationControl.loot_information_status;
@@ -115,7 +115,7 @@ public class Hooker {
     }
 
     //? >=1.21.10 {
-    /*public static final java.util.List<Tuple3<ItemEntity, Float, Vec3>> retainedEntities = new java.util.ArrayList<>();
+    public static final java.util.List<Tuple3<ItemEntity, Float, Vec3>> retainedEntities = new java.util.ArrayList<>();
 
     public static void handleTuple(PoseStack poseStack, LevelRenderState renderState, SubmitNodeCollector nodeCollector, CallbackInfo ci, Tuple3<ItemEntity, Float, Vec3> tuple, EntityRenderDispatcher entityRenderDispatcher) {
         ItemEntity retainEntity = tuple._1;
@@ -129,7 +129,7 @@ public class Hooker {
         lootBeamEntityDispatcherHook(retainEntity,  d0,  d1,  d2, retainEntity.getYHeadRot(), tuple._2, poseStack, new Holder(nodeCollector), entityRenderDispatcher.getPackedLightCoords(retainEntity, tuple._2), ci);
         poseStack.popPose();
     }
-    *///?}
+    //?}
 
     public static void printThing(int color, float beamRadius, float glowRadius){
         System.out.println(color);

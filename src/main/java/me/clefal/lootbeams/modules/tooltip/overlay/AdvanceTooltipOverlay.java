@@ -10,7 +10,7 @@ import com.mojang.blaze3d.platform.Window;
 //? if >=1.21.1
 import net.minecraft.client.DeltaTracker;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.entity.Entity;
@@ -110,12 +110,12 @@ public class AdvanceTooltipOverlay {
     }
 //? if >=1.21.1 {
     
-    public void render(GuiGraphics guiGraphics, DeltaTracker tracker) {
+    public void render(GuiGraphicsExtractor guiGraphics, DeltaTracker tracker) {
         //cannot request this when register overlay, so I have to put it at here.
         if (LootInfomationConfig.lootInfomationConfig.lootInformationControl.loot_information_status != LootInformationEnableStatus.LootInformationStatus.NAME_AND_RARITY_IN_TOOLTIPS)
             return;
         Minecraft mc = Minecraft.getInstance();
-        if (mc.screen != null) return;
+        if (mc.gui.screen() != null) return;
         EntityHitResult entityItem = getEntityItem(mc.player, tracker.getGameTimeDeltaPartialTick(true));
         if (entityItem == null) return;
         ItemEntity itemEntity = ((ItemEntity) entityItem.getEntity());
@@ -124,31 +124,31 @@ public class AdvanceTooltipOverlay {
 
         if (checkCrouch()) {
             //? <1.21.8 {
-            guiGraphics.renderTooltip(Minecraft.getInstance().font, itemEntity.getItem(), (int) vector2f.x, (int) vector2f.y);
-        //?} else {
-            /*guiGraphics.setTooltipForNextFrame(Minecraft.getInstance().font, itemEntity.getItem(), (int) vector2f.x, (int) vector2f.y);
-        *///?}
+            /*guiGraphics.renderTooltip(Minecraft.getInstance().font, itemEntity.getItem(), (int) vector2f.x, (int) vector2f.y);
+        *///?} else {
+            guiGraphics.setTooltipForNextFrame(Minecraft.getInstance().font, itemEntity.getItem(), (int) vector2f.x, (int) vector2f.y);
+        //?}
         } else {
             TooltipsGatherNameAndRarityEvent tooltipsGatherNameAndRarityEvent = new TooltipsGatherNameAndRarityEvent(ask);
             LootBeamsConstants.EVENT_BUS.post(tooltipsGatherNameAndRarityEvent);
             List<Component> nameAndRarity = new ArrayList<>(tooltipsGatherNameAndRarityEvent.gather.values());
 //? < 1.21.8 {
-            guiGraphics.renderTooltip(Minecraft.getInstance().font, nameAndRarity, itemEntity.getItem().getTooltipImage(), (int) vector2f.x, (int) vector2f.y);
-//?} else {
-            /*guiGraphics.setTooltipForNextFrame(Minecraft.getInstance().font, nameAndRarity, itemEntity.getItem().getTooltipImage(), (int) vector2f.x, (int) vector2f.y);
-            *///?}
+            /*guiGraphics.renderTooltip(Minecraft.getInstance().font, nameAndRarity, itemEntity.getItem().getTooltipImage(), (int) vector2f.x, (int) vector2f.y);
+*///?} else {
+            guiGraphics.setTooltipForNextFrame(Minecraft.getInstance().font, nameAndRarity, itemEntity.getItem().getTooltipImage(), (int) vector2f.x, (int) vector2f.y);
+            //?}
         }
 
     }
 
      //?}
     //? if = 1.20.1 {
-    /*public void render(GuiGraphics guiGraphics, float partialTick) {
+    /*public void render(GuiGraphicsExtractor guiGraphics, float partialTick) {
         //cannot request this when register overlay, so I have to put it at here.
         if (LootInfomationConfig.lootInfomationConfig.lootInformationControl.loot_information_status != LootInformationEnableStatus.LootInformationStatus.NAME_AND_RARITY_IN_TOOLTIPS)
             return;
         Minecraft mc = Minecraft.getInstance();
-        if (mc.screen != null) return;
+        if (mc.gui.screen() != null) return;
         EntityHitResult entityItem = getEntityItem(mc.player);
         if (entityItem == null) return;
         ItemEntity itemEntity = ((ItemEntity) entityItem.getEntity());

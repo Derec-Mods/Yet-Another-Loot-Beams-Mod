@@ -13,7 +13,7 @@ import me.fzzyhmstrs.fzzy_config.validation.minecraft.ValidatedIdentifier;
 import me.fzzyhmstrs.fzzy_config.validation.misc.ValidatedString;
 import me.fzzyhmstrs.fzzy_config.validation.number.ValidatedFloat;
 import net.minecraft.core.registries.BuiltInRegistries;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 
 public class SoundConfig extends Config {
     public static SoundConfig soundConfig = ConfigApiJava.registerAndLoadConfig(SoundConfig::new, RegisterType.CLIENT);
@@ -32,7 +32,7 @@ public class SoundConfig extends Config {
     }
 
     public static class SoundFilter extends ConfigSection {
-        public ValidatedSet<ResourceLocation> blacklist_by_name = ValidatedIdentifier.ofRegistry(BuiltInRegistries.ITEM.getDefaultKey(), BuiltInRegistries.ITEM).toSet();
+        public ValidatedSet<Identifier> blacklist_by_name = ValidatedIdentifier.ofRegistry(BuiltInRegistries.ITEM.getDefaultKey(), BuiltInRegistries.ITEM).toSet();
         public ValidatedSet<String> blacklist_by_tag = new ValidatedString("#minecraft:air", "#.+:.+").toSet();
         public ValidatedSet<String> blacklist_by_modid = new ValidatedString("lootbeams", new AllowableStrings(x -> !x.isBlank() && !x.contains("#"), ModUtils::getModList)).toSet();
     }

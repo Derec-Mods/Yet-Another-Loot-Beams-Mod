@@ -6,7 +6,7 @@ import me.clefal.lootbeams.data.lbitementity.LBItemEntity;
 import me.clefal.lootbeams.utils.ResourceLocationHelper;
 import com.google.common.base.Supplier;
 import lombok.experimental.UtilityClass;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.item.ItemStack;
 
 import java.util.LinkedHashSet;

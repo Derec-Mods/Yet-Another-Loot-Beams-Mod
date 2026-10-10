@@ -16,13 +16,13 @@ public class BeamModule implements ILBModule {
     @SubscribeEvent(priority = EventPriority.LOWEST)
     public void onEnableModule(EntityRenderDispatcherHookEvent.RenderLootBeamEvent event) {
         //? <1.21.10 {
-        BeamRenderer.INSTANCE.renderLootBeam(event.poseStack, event.holder.get(), event.partialTicks, event.LBItemEntity, event.isShaderOn);
-        //? } elif <26.2 {
+        /*BeamRenderer.INSTANCE.renderLootBeam(event.poseStack, event.holder.get(), event.partialTicks, event.LBItemEntity, event.isShaderOn);
+        *///? } elif <26.2 {
         /*LootBeamRenderStateSubmitter lootBeamRenderStateSubmitter = (LootBeamRenderStateSubmitter) event.holder.get();
         lootBeamRenderStateSubmitter.loot_Beams_Refork$submitBeam(LootBeamRenderState.BeamRenderState.make(event.LBItemEntity, event.poseStack.last().copy(), event.partialTicks, event.isShaderOn));
         *///? } else {
-        /*BeamRenderer.INSTANCE.renderLootBeam((net.minecraft.client.renderer.SubmitNodeCollector) event.holder.get(), LootBeamRenderState.BeamRenderState.make(event.LBItemEntity, event.poseStack.last().copy(), event.partialTicks, event.isShaderOn));
-        *///? }
+        BeamRenderer.INSTANCE.renderLootBeam((net.minecraft.client.renderer.SubmitNodeCollector) event.holder.get(), LootBeamRenderState.BeamRenderState.make(event.LBItemEntity, event.poseStack.last().copy(), event.partialTicks, event.isShaderOn));
+        //? }
 
     }
 

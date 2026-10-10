@@ -26,19 +26,19 @@ public abstract class PoseMixin implements PoseCopy {
     }
     *///? } else {
     //? < 1.21.8 {
-    @Override
+    /*@Override
     public PoseStack.Pose loot_Beams_Refork$copy() {
         return PoseInvoker.createPose(((PoseStack.Pose)((Object) this)));
     }
-    //?} else {
+    *///?} else {
     
-    /*@Shadow
+    @Shadow
     public abstract PoseStack.Pose copy();
     public PoseStack.Pose loot_Beams_Refork$copy() {
 
         return this.copy();
     }
-    *///?}
+    //?}
     //?}
 
 }

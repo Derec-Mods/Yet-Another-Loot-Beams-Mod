@@ -15,7 +15,7 @@ public record LBRarity(Component name, LBColor color, int absoluteOrdinal, Modif
 
     public static LBRarity ofVanillaRarity(Rarity rarity){
         Component name;
-        if (I18n.exists(vanillaRarityKeFormat + rarity.name().toLowerCase())) {
+        if (net.minecraft.locale.Language.getInstance().has(vanillaRarityKeFormat + rarity.name().toLowerCase())) {
             name = Component.translatable(vanillaRarityKeFormat + rarity.name().toLowerCase());
         } else {
             name = Component.literal(rarity.name().toLowerCase());
@@ -23,10 +23,10 @@ public record LBRarity(Component name, LBColor color, int absoluteOrdinal, Modif
         return new LBRarity(name, LBColor.of(
                 //this is so horrible
                 //? !fabric {
-                rarity.getStyleModifier().apply(Style.EMPTY).getColor().getValue()
-                //?} else {
-                /*grabColorWhenOnStupidFabric(rarity)
-                *///?}
+                /*rarity.getStyleModifier().apply(Style.EMPTY).getColor().getValue()
+                *///?} else {
+                grabColorWhenOnStupidFabric(rarity)
+                //?}
 
         ), rarity.ordinal(), new ModifyContext(false));
     }
@@ -36,19 +36,19 @@ public record LBRarity(Component name, LBColor color, int absoluteOrdinal, Modif
     }
 
     //? fabric {
-    /*private static int grabColorWhenOnStupidFabric(Rarity rarity){
+    private static int grabColorWhenOnStupidFabric(Rarity rarity){
         //? 1.20.1 {
-        return rarity.color.getColor();
-        //?} elif <26.2 {
-        /^return rarity.color().getColor();
-        ^///?} else {
-        /^return switch (rarity) {
+        /*return rarity.color.getColor();
+        *///?} elif <26.2 {
+        /*return rarity.color().getColor();
+        *///?} else {
+        return switch (rarity) {
             case UNCOMMON -> 0xFFFF55;
             case RARE -> 0x55FFFF;
             case EPIC -> 0xFF55FF;
             default -> 0xFFFFFF;
         };
-        ^///?}
+        //?}
     }
-    *///?}
+    //?}
 }
