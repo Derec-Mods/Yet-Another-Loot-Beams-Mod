@@ -1,7 +1,7 @@
 package me.clefal.lootbeams.config.configs;
 
+
 import me.clefal.lootbeams.data.lbitementity.LBItemEntity;
-import lombok.experimental.UtilityClass;
 import me.fzzyhmstrs.fzzy_config.validation.collection.ValidatedSet;
 import net.minecraft.core.Holder;
 import net.minecraft.core.registries.BuiltInRegistries;
@@ -11,12 +11,9 @@ import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 
-import java.util.Optional;
-
-@UtilityClass
 public class Checker {
 
-    public boolean checkItemEquality(ItemStack itemStack, Identifier resourceLocation) {
+    public static boolean checkItemEquality(ItemStack itemStack, Identifier resourceLocation) {
         //? if <=1.21.1 {
         /*Item registryItem = BuiltInRegistries.ITEM.get(resourceLocation);
         return itemStack.is(registryItem.asItem());
@@ -27,7 +24,7 @@ public class Checker {
 
     }
 
-    public boolean checkTagContainItem(ItemStack itemStack, Identifier resourceLocation) {
+    public static boolean checkTagContainItem(ItemStack itemStack, Identifier resourceLocation) {
         TagKey<Item> itemTagKey = TagKey.create(
                 // The registry key. The type of the registry must match the generic type of the tag.
                 Registries.ITEM,
@@ -37,32 +34,32 @@ public class Checker {
         return itemStack.is(itemTagKey);
     }
 
-    public boolean checkIsThisMod(ItemStack itemStack, String modId) {
+    public static boolean checkIsThisMod(ItemStack itemStack, String modId) {
         return BuiltInRegistries.ITEM.getKey(itemStack.getItem()).getNamespace().equals(modId);
     }
 
-    public boolean checkItemInItemList(ItemStack itemStack, ValidatedSet<Identifier> resourceLocations) {
+    public static boolean checkItemInItemList(ItemStack itemStack, ValidatedSet<Identifier> resourceLocations) {
         Identifier registryItem = BuiltInRegistries.ITEM.getKey(itemStack.getItem());
         return resourceLocations.contains(registryItem);
     }
 
-    public boolean checkItemHasTagInTagList(ItemStack itemStack, ValidatedSet<String> tags) {
+    public static boolean checkItemHasTagInTagList(ItemStack itemStack, ValidatedSet<String> tags) {
         return itemStack.tags().map(x -> x.location().toString()).anyMatch(tags::contains);
     }
 
-    public boolean checkIsInThisModList(ItemStack itemStack, ValidatedSet<String> modId) {
+    public static boolean checkIsInThisModList(ItemStack itemStack, ValidatedSet<String> modId) {
         return modId.contains(BuiltInRegistries.ITEM.getKey(itemStack.getItem()).getNamespace());
     }
 
-    public boolean checkItemInItemList(LBItemEntity lbItemEntity, ValidatedSet<Identifier> resourceLocations) {
+    public static boolean checkItemInItemList(LBItemEntity lbItemEntity, ValidatedSet<Identifier> resourceLocations) {
         return resourceLocations.contains(lbItemEntity.resourceLocation());
     }
 
-    public boolean checkItemHasTagInTagList(LBItemEntity lbItemEntity, ValidatedSet<String> tags) {
+    public static boolean checkItemHasTagInTagList(LBItemEntity lbItemEntity, ValidatedSet<String> tags) {
         return lbItemEntity.item().getItem().tags().map(x -> x.location().toString()).anyMatch(tags::contains);
     }
 
-    public boolean checkIsInThisModList(LBItemEntity lbItemEntity, ValidatedSet<String> modId) {
+    public static boolean checkIsInThisModList(LBItemEntity lbItemEntity, ValidatedSet<String> modId) {
         return modId.contains(lbItemEntity.resourceLocation().getNamespace());
     }
 }

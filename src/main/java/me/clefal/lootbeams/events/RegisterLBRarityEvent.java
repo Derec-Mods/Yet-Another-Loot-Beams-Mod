@@ -1,15 +1,18 @@
 package me.clefal.lootbeams.events;
 
+
 import me.clefal.lootbeams.data.lbitementity.rarity.ILBRarityApplier;
-import lombok.Getter;
 import me.clefal.lootbeams.bus.Event;
 
 import java.util.List;
 import java.util.function.Consumer;
 
-@Getter
 public abstract class RegisterLBRarityEvent extends Event {
     protected final List<ILBRarityApplier> gather;
+
+    public List<ILBRarityApplier> getGather() {
+        return this.gather;
+    }
 
     public RegisterLBRarityEvent(List<ILBRarityApplier> rarities) {
         this.gather = rarities;

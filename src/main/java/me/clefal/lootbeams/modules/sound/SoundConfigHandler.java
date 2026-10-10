@@ -5,13 +5,6 @@ import me.clefal.lootbeams.config.configs.SoundConfig;
 import me.clefal.lootbeams.data.lbitementity.LBItemEntity;
 import me.clefal.lootbeams.utils.ResourceLocationHelper;
 import com.google.common.base.Supplier;
-import lombok.experimental.UtilityClass;
-import net.minecraft.resources.Identifier;
-import net.minecraft.world.item.ItemStack;
-
-import java.util.LinkedHashSet;
-import java.util.stream.Stream;
-@UtilityClass
 public class SoundConfigHandler {
 
     public static boolean checkInBlackList(LBItemEntity lbItemEntity){

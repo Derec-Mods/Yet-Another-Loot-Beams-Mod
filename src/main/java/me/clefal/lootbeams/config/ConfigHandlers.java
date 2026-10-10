@@ -6,15 +6,16 @@ import me.clefal.lootbeams.config.impl.IConfigReloadable;
 import me.clefal.lootbeams.config.impl.ModifyingConfigHandler;
 import me.clefal.lootbeams.data.lbitementity.rarity.ConfigColorOverride;
 import me.clefal.lootbeams.data.lbitementity.rarity.NameColorOverride;
-import me.clefal.lootbeams.events.ConfigReloadEvent;
-import lombok.Getter;
+
 
 import java.util.List;
 
 public class ConfigHandlers implements IConfigReloadable {
     public static ConfigHandlers INSTANCE = new ConfigHandlers();
-    @Getter
     private List<ModifyingConfigHandler> handlers;
+    public List<ModifyingConfigHandler> getHandlers() {
+        return this.handlers;
+    }
 
     public ConfigHandlers() {
         registerAll();

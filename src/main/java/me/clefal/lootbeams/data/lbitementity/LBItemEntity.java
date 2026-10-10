@@ -2,15 +2,12 @@ package me.clefal.lootbeams.data.lbitementity;
 
 import me.clefal.lootbeams.config.configs.CustomConfig;
 import me.clefal.lootbeams.data.lbitementity.rarity.LBRarity;
-import lombok.Getter;
-import lombok.experimental.Accessors;
+
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.Identifier;
 import net.minecraft.world.entity.item.ItemEntity;
 import org.jetbrains.annotations.Contract;
 
-@Getter
-@Accessors(fluent = true)
 public class LBItemEntity {
 
     private final ItemEntity item;
@@ -19,6 +16,30 @@ public class LBItemEntity {
     private boolean isSounded;
     private RenderState canBeRender = RenderState.NONE;
     private int fadeIn;
+
+    public ItemEntity item() {
+        return this.item;
+    }
+
+    public Identifier resourceLocation() {
+        return this.resourceLocation;
+    }
+
+    public LBRarity rarity() {
+        return this.rarity;
+    }
+
+    public boolean isSounded() {
+        return this.isSounded;
+    }
+
+    public RenderState canBeRender() {
+        return this.canBeRender;
+    }
+
+    public int fadeIn() {
+        return this.fadeIn;
+    }
     private LBItemEntity(ItemEntity item, LBRarity rarity, boolean isSounded, int fadeIn) {
         this.item = item;
         this.resourceLocation = BuiltInRegistries.ITEM.getKey(item.getItem().getItem());
