@@ -45,3 +45,33 @@ bin/
 
 ### Mac OS ###
 .DS_Store
+
+### Local Configurations & Secrets ###
+local.properties
+*-local.properties
+secrets.properties
+*.keystore
+*.jks
+.env
+*.env
+
+### Minecraft Runtime & Debug ###
+runClient/
+runServer/
+runData/
+logs/
+crash-reports/
+*.log
+.fabric/
+.mixin.out/
+
+### JVM Dumps ###
+hs_err_pid*
+replay_pid*
+
+### OS Artifacts ###
+Thumbs.db
+Thumbs.db:encryptable
+ehthumbs.db
+[Dd]esktop.ini
+._*

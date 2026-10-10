@@ -1,7 +1,7 @@
 plugins {
     id("dev.kikugie.stonecutter")
 }
-stonecutter active "1.21.1-neoforge"
+stonecutter active "26.2-fabric"
 
 // Stonecutter 0.7+ dropped chiseled tasks: `./gradlew build` already builds every target.
 // Each jar still lands in versions/<target>/build/libs, so gather them in one place.
