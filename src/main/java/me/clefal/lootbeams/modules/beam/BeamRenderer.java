@@ -118,7 +118,7 @@ public class BeamRenderer {
         int bloomAlpha = (int) (beamAlpha * 0.4f);
 
         stack.pushPose();
-        stack.mulPose(Axis.YP.rotation((float) v));
+        stack.rotate(Axis.YP.rotation((float) v));
         //Render main beam
         {
             stack.pushPose();
@@ -167,7 +167,7 @@ public class BeamRenderer {
 
                 stack.pushPose();
                 //stack.translate(0, 0.01, 0);
-                stack.mulPose(Axis.XP.rotationDegrees(90));
+                stack.rotate(Axis.XP.rotationDegrees(90));
                 float radius = glowConfig.glow_effect_radius.get();
                 stack.translate(0, -radius, -0.01f);
                 emit(buffer, stack, BeamRenderType.GLOW_TEXTURE, R, G, B, ((int) (beamAlpha * 0.4f)), -radius, radius, 0, 1, 0);

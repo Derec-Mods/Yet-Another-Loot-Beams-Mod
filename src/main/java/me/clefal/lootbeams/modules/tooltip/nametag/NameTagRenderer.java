@@ -56,10 +56,10 @@ public class NameTagRenderer {
             //? < 1.21.10 {
             /*stack.mulPose(Minecraft.getInstance().getEntityRenderDispatcher().cameraOrientation());
             *///? } else {
-            stack.mulPose(Minecraft.getInstance().getEntityRenderDispatcher().camera.rotation());
+            stack.rotate(Minecraft.getInstance().getEntityRenderDispatcher().camera.rotation());
             //? }
             //? if > 1.20.1
-            stack.mulPose(Axis.YP.rotationDegrees(180));
+            stack.rotate(Axis.YP.rotationDegrees(180));
 
             float nametagScale = nameTagSection.name_tag_scale.get();
             stack.scale(-0.02F * nametagScale, -0.02F * nametagScale, 0.02F * nametagScale);

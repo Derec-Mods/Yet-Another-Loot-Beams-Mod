@@ -5,6 +5,9 @@ import me.clefal.lootbeams.config.configs.SoundConfig;
 import me.clefal.lootbeams.data.lbitementity.LBItemEntity;
 import me.clefal.lootbeams.utils.ResourceLocationHelper;
 import com.google.common.base.Supplier;
+
+import java.util.stream.Stream;
+
 public class SoundConfigHandler {
 
     public static boolean checkInBlackList(LBItemEntity lbItemEntity){

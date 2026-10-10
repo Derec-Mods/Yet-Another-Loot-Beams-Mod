@@ -11,6 +11,8 @@ import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 
+import java.util.Optional;
+
 public class Checker {
 
     public static boolean checkItemEquality(ItemStack itemStack, Identifier resourceLocation) {

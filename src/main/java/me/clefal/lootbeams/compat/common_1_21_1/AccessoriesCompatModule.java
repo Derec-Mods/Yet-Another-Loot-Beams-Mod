@@ -6,7 +6,6 @@ import me.clefal.lootbeams.utils.ModUtils;
 import me.clefal.lootbeams.LootBeamsConstants;
 import me.clefal.lootbeams.events.RegisterConfigConditionEvent;
 import me.clefal.lootbeams.modules.ILBCompatModule;
-import io.wispforest.accessories.Accessories;
 import io.wispforest.accessories.api.AccessoriesAPI;
 import net.minecraft.client.Minecraft;
 
@@ -15,7 +14,7 @@ public class AccessoriesCompatModule implements ILBCompatModule {
 
     @Override
     public boolean shouldBeEnable() {
-        return ModUtils.isModLoaded(Accessories.MODID);
+        return ModUtils.isModLoaded("accessories");
     }
 
     @Override
